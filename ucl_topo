@@ -14,7 +14,7 @@
 
 # You can override any of these settings on a per-topology basis
 # Group number
-GROUPNUMBER=42
+GROUPNUMBER=1
 # Node configs
 CONFIGDIR=ucl_minimal_cfg
 # boot script name
@@ -22,7 +22,9 @@ BOOT="boot.sh"
 # startup script name
 STARTUP="start.sh"
 PREFIXLEN_as200=48
+PREFIXLEN_as300=48
 PREFIXBASE_as200="fd00:200:${GROUPNUMBER}::/${PREFIXLEN_as200}"
+PREFIXBASE_as300="fd00:300:${GROUPNUMBER}::/${PREFIXLEN_as300}"
 # You can reuse the above two to generate ip addresses/routes, ...
 # in you boot and startup scripts
 # e.g. "${PREFIXBASE}:1234::/$((PREFIXLEN+16))"

@@ -1,6 +1,6 @@
 ---
 name: Pythagore
-bird6::routing_id: 42.0.0.4
+bird6::routing_id: 1.0.0.4
 bird6::ospfv3:
   hello_itfs:  # Activate OSPFv3 only on these interfaces
     - Pythagore-eth0
@@ -8,6 +8,9 @@ bird6::ospfv3:
     - Pythagore-eth2
   stub_itfs: [] # Passive interfaces (e.g., LANs)
 bird6::bgp:
-  local_as: 42
-  neighbor_ip: fd00:200::b
-  neighbor_as: 200
+  isBorderRouter: true
+  local_as: 1
+  neighbor_ip: fd00:300::b
+  neighbor_as: 300
+  export_prefix: fd00:300:1::/48
+  source_ip: fd00:300::1

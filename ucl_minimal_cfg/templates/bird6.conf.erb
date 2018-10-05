@@ -28,12 +28,18 @@ protocol ospf {
     };
 }
 
-<%- if @bgp != nil -%>
-	/* Define one bgp session block per peer */
-	protocol bgp provider200 {
-		local as 42;
-		neighbor fd00:200::b as 200;
-		export all;
+<%- if @bgp["isBorderRouter"] == true -%>
+	
+	protocol static static_bgp{
+		route <%= @bgp["export_prefix"] %> reject;
+	}
+
+	protocol bgp provider {
+		local as <%= @bgp["local_as"] %>;
+		neighbor <%= @bgp["neighbor_ip"] %> as <%= @bgp["neighbor_as"]%>;
+		#source address <%= @bgp["source_ip"] %>;
+		#direct;
+		export where proto = "static_bgp";
 		import all;
 	}
 <%- end -%>

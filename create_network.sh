@@ -202,7 +202,7 @@ fi
 _dname=$(dirname "$0")
 BDIR=$(cd "$_dname"; pwd -P)
 # Group number
-GROUPNUMBER=255
+GROUPNUMBER=1
 # Node configs  
 CONFIGDIR=cfg
 # boot script name
