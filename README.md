@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # lingi2142
 
 This repository contains:
@@ -262,3 +263,6 @@ hosts to the switch.
            would go to Preferences / Advanced / Connection / Settings / Manual 
            Proxy / SOCKS host: localhost, port <port> / SOCKS 5 / Tick the 
            Proxy DNS option at the bottom of the pane).
+=======
+# LINGI2142_Group1_Project
+>>>>>>> d513304ede3ba466c521f6dfaf75209f29767040
