@@ -38,7 +38,6 @@ protocol ospf {
 		local as <%= @bgp["local_as"] %>;
 		neighbor <%= @bgp["neighbor_ip"] %> as <%= @bgp["neighbor_as"]%>;
 		#source address <%= @bgp["source_ip"] %>;
-		#direct;
 		export where proto = "static_bgp";
 		import all;
 	}
