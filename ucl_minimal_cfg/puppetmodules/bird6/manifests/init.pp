@@ -1,6 +1,7 @@
 # Puppet looks in data/node.yaml for bird6::routing_id and bird6::ospfv3 automatically
 # These variables are now accessible in the template
 class bird6 (
+  String $router_name,
   String $routing_id,
   Hash $ospfv3,
   Hash $bgp

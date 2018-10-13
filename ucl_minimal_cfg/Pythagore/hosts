@@ -5,3 +5,9 @@
 ::1     localhost ip6-localhost ip6-loopback
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
+
+##
+# SH1C
+##
+fd00:200:1:ff00::5	SH1C
+fd00:300:1:ff00::5	SH1C

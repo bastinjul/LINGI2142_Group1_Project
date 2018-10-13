@@ -1,5 +1,6 @@
 ---
 name: Pythagore
+bird6::router_name: Pythagore
 bird6::routing_id: 1.0.0.4
 bird6::ospfv3:
   hello_itfs:  # Activate OSPFv3 only on these interfaces

@@ -1,5 +1,6 @@
 ---
 name: SH1C
+bird6::router_name: SH1C
 bird6::routing_id: 1.0.0.5
 bird6::ospfv3:
   hello_itfs:  # Activate OSPFv3 only on these interfaces

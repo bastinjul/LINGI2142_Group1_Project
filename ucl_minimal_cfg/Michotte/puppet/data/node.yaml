@@ -1,5 +1,6 @@
 ---
 name: Michotte
+bird6::router_name: Michotte
 bird6::routing_id: 1.0.0.3
 bird6::ospfv3:
   hello_itfs:  # Activate OSPFv3 only on these interfaces

@@ -1,5 +1,6 @@
 ---
 name: Halles
+bird6::router_name: Halles
 bird6::routing_id: 1.0.0.2
 bird6::ospfv3:
   hello_itfs:  # Activate OSPFv3 only on these interfaces
