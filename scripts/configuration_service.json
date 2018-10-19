@@ -1,0 +1,24 @@
+{
+  "NS1":
+  {
+    "location_bits": "0000",
+    "end_address": "::1",
+    "sub_network_prefix": "00000",
+    "default_route": "fd00:300:1:f600::"
+  },
+  "NS2":
+  {
+    "location_bits": "1010",
+    "end_address": "::1",
+    "sub_network_prefix": "00000",
+    "default_route": "fd00:200:1:f740::"
+  },
+  "MONITORING":
+  {
+    "location_bits": "0000",
+    "end_address": "::100",
+    "sub_network_prefix": "11111",
+    "default_route": "fd00:300:1:f61f::"
+  }
+}
+

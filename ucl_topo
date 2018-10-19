@@ -46,6 +46,9 @@ function mk_topo {
 
     echo "@@ Adding LANs"
     # You can add your LANs here
+    mk_LAN Pythagore NS1 # Pythagore-lan0
+    mk_LAN Michotte NS2 # Michotte-lan0
+    mk_LAN Pythagore MONITORING # Pythagore-lan1
 
     echo "@@ Bridging the network"
     # Connect to belneta and belnetb

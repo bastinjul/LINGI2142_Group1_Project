@@ -37,7 +37,20 @@ protocol ospf {
                         dead 3;
                         cost 20;
                 };
+		interface "<%= @router_name %>-eth1" {
+			hello 1;
+			dead 3;
+			cost 12;
+		};
         <%- end -%>
+	<%- if @router_name == "Carnoy" -%>
+                interface "<%= @router_name %>-eth1" {
+                        hello 1;
+                        dead 3;
+                        cost 12;
+                };
+        <%- end -%>
+
 
 		interface "<%= @router_name %>-eth*" {
 			hello 1;
