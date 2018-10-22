@@ -49,7 +49,7 @@ for router, configs in data.items():
         for prefix in PREFIXES:
             prefix_end_bits = "1111011" + configs["location_bits"] + end_prefix
             prefix_end = '%04x' % int(prefix_end_bits, 2)
-            start_config.write("ip address add dev " + lan + " " + prefix + prefix_end + "::/64 \n")
+            start_config.write("ip address add dev " + router + "-" + lan + " " + prefix + prefix_end + "::/64 \n")
 
     start_config.write("\n")
 
