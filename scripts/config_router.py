@@ -10,10 +10,10 @@ for router, configs in data.items():
 
     start_config = open(MAIN_PATH + "ucl_minimal_cfg/" + router + "_start.sh", "w")
     start_config.write("#!/bin/bash \n\n")
-	if router in ["Pytagore", "Halles"]:
-		start_config.write("sudo ip netns exec " + router + " " + MAIN_PATH + "firewall/border_router.sh\n\n")
-	else:
-		start_config.write("sudo ip netns exec " + router + " " + MAIN_PATH + "firewall/internal_router.sh\n\n")
+    if router in ["Pytagore", "Halles"]:
+        start_config.write("sudo ip netns exec " + router + " " + MAIN_PATH + "firewall/border_router.sh\n\n")
+    else:
+        start_config.write("sudo ip netns exec " + router + " " + MAIN_PATH + "firewall/internal_router.sh\n\n")
     start_config.write("puppet apply --verbose --parser future --hiera_config=/etc/puppet/hiera.yaml /etc/puppet/site.pp --modulepath=/puppetmodules \n\n")
 
     # for bgp
@@ -45,7 +45,7 @@ for router, configs in data.items():
     start_config.write("\n")
 
     for lan, end_prefix in configs["lans"].items():
-        start_config.write("ip link set dev " + lan + " up \n")
+        start_config.write("ip link set dev " + router + "-" + lan + " up \n")
         for prefix in PREFIXES:
             prefix_end_bits = "1111011" + configs["location_bits"] + end_prefix
             prefix_end = '%04x' % int(prefix_end_bits, 2)
