@@ -10,10 +10,10 @@ for router, configs in data.items():
 
     start_config = open(MAIN_PATH + "ucl_minimal_cfg/" + router + "_start.sh", "w")
     start_config.write("#!/bin/bash \n\n")
-	if router in ["Pytagore", "Halles"]:
-		start_config.write("sudo ip netns exec " + router + " " + MAIN_PATH + "firewall/border_router.sh\n\n")
-	else:
-		start_config.write("sudo ip netns exec " + router + " " + MAIN_PATH + "firewall/internal_router.sh\n\n")
+    if router in ["Pytagore", "Halles"]:
+        start_config.write("ip netns exec " + router + " " + MAIN_PATH + "firewall/border_router.sh\n\n")
+    else:
+        start_config.write("ip netns exec " + router + " " + MAIN_PATH + "firewall/internal_router.sh\n\n")
     start_config.write("puppet apply --verbose --parser future --hiera_config=/etc/puppet/hiera.yaml /etc/puppet/site.pp --modulepath=/puppetmodules \n\n")
 
     # for bgp
@@ -58,6 +58,3 @@ for router, configs in data.items():
             start_config.write(command + " \n")
 
     start_config.write("\n")
-
-    start_config.close()
-
