@@ -10,8 +10,8 @@ ip link set dev Michotte-eth1 up
 ip address add dev Michotte-eth1 fd00:200:1:fe40::3/64 
 ip address add dev Michotte-eth1 fd00:300:1:fe40::3/64 
 
-ip link set dev Michotte-lan0 up 
-ip address add dev Michotte-lan0 fd00:200:1:f740::/64 
-ip address add dev Michotte-lan0 fd00:300:1:f740::/64 
+ip link set dev lan0 up 
+ip address add dev lan0 fd00:200:1:f740::/64 
+ip address add dev lan0 fd00:300:1:f740::/64 
 
 

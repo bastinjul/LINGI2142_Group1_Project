@@ -8,8 +8,8 @@ bird6::ospfv3:
     - Pythagore-eth1
     - Pythagore-eth2
   stub_itfs: # Passive interfaces (e.g., LANs)
-    - Pythagore-lan0
-    - Pythagore-lan1
+    - lan0
+    - lan1
 bird6::bgp:
   isBorderRouter: true
   local_as: 1
