@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 import json
+import os
+import stat
 
 from constants import PREFIXES, SCRIPTS_PATH, MAIN_PATH
 
@@ -27,3 +29,16 @@ for service, configs in data.items():
     service_boot.write("#!/bin/bash \n\n")
     service_boot.write("sysctl -p")
     service_boot.close()
+
+    #service_sysctl = open(MAIN_PATH + "ucl_minimal_cfg/" + service + "/sysctl.conf", "w")
+    #service_sysctl.write("net.ipv6.conf.all.disable_ipv6=0\n" + "net.ipv6.conf.all.forwarding=1\n" + "net.ipv6.conf.default.disable_ipv6=0\n" + "net.ipv6.conf.default.forwarding=1")
+    #service_sysctl.close()
+
+    # Add execution right to _start.sh file
+    file_stat = os.stat(MAIN_PATH + "ucl_minimal_cfg/" + service + "_start.sh")
+    os.chmod(MAIN_PATH+ "ucl_minimal_cfg/" + service + "_start.sh", file_stat.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+
+    # Add execution right to _boot.sh file
+    file_stat = os.stat(MAIN_PATH + "ucl_minimal_cfg/" + service + "_boot.sh")
+    os.chmod(MAIN_PATH+ "ucl_minimal_cfg/" + service + "_boot.sh", file_stat.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+
