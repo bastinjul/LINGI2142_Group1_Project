@@ -1,24 +1,26 @@
 #!/bin/bash 
 
+sudo ip netns exec Pythagore /home/vagrant/LINGI2142_Group1_Project/firewall/internal_router.sh
+
 puppet apply --verbose --parser future --hiera_config=/etc/puppet/hiera.yaml /etc/puppet/site.pp --modulepath=/puppetmodules 
 
 ip link set dev belneta up 
 ip address add dev belneta fd00:300::1/48 
 
-ip link set dev Pythagore-eth0 up 
-ip address add dev Pythagore-eth0 fd00:200:1:ff02::4/64 
-ip address add dev Pythagore-eth0 fd00:300:1:ff02::4/64 
 ip link set dev Pythagore-eth2 up 
 ip address add dev Pythagore-eth2 fd00:200:1:fe00::4/64 
 ip address add dev Pythagore-eth2 fd00:300:1:fe00::4/64 
 ip link set dev Pythagore-eth1 up 
 ip address add dev Pythagore-eth1 fd00:200:1:fe41::4/64 
 ip address add dev Pythagore-eth1 fd00:300:1:fe41::4/64 
+ip link set dev Pythagore-eth0 up 
+ip address add dev Pythagore-eth0 fd00:200:1:ff02::4/64 
+ip address add dev Pythagore-eth0 fd00:300:1:ff02::4/64 
 
-ip link set dev lan0 up 
+ip link set dev Pythagore-lan0 up 
 ip address add dev lan0 fd00:200:1:f600::/64 
 ip address add dev lan0 fd00:300:1:f600::/64 
-ip link set dev lan1 up 
+ip link set dev Pythagore-lan1 up 
 ip address add dev lan1 fd00:200:1:f61f::/64 
 ip address add dev lan1 fd00:300:1:f61f::/64 
 

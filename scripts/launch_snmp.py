@@ -9,4 +9,5 @@ with open(SCRIPTS_PATH+'configuration_router.json') as data_file:
     data = json.load(data_file)
 
 for r in data:
-	os.system('sudo ./snmpd_start' + MAIN_PATH + 'ucl_minimal_cfg/ ' +r)
+	print('sudo ./snmpd_start.sh ../ucl_minimal_cfg ' +r)
+	os.system('sudo ./snmpd_start.sh ../ucl_minimal_cfg/ ' +r)
