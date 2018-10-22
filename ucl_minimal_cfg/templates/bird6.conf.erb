@@ -1,0 +1,80 @@
+<%# ERB template https://puppet.com/docs/puppet/5.3/lang_template_erb.html -%>
+router id <%= @routing_id %>;
+
+protocol kernel {
+ 	learn;
+	scan time 20;
+	export all;
+}
+
+protocol device {
+	scan time 10;
+}
+
+filter export_ospf{
+        if net ~ fd00:200:1::/48 then accept;
+        if net ~ fd00:300:1::/48 then accept;
+        if net = ::/0 then accept;
+else reject;
+}
+
+protocol ospf {
+        preference 10;
+        import all;
+        export filter export_ospf;
+
+	area 0.0.0.0 {
+	<%- if @router_name == "Halles" -%>
+		interface "<%= @router_name %>-eth1" {
+			hello 1;
+			dead 3;
+			cost 20;
+		};
+	<%- end -%>
+        <%- if @router_name == "Pythagore" -%>
+                interface "<%= @router_name %>-eth0" {
+                        hello 1;
+                        dead 3;
+                        cost 20;
+                };
+		interface "<%= @router_name %>-eth1" {
+			hello 1;
+			dead 3;
+			cost 12;
+		};
+        <%- end -%>
+	<%- if @router_name == "Carnoy" -%>
+                interface "<%= @router_name %>-eth1" {
+                        hello 1;
+                        dead 3;
+                        cost 12;
+                };
+        <%- end -%>
+
+
+		interface "<%= @router_name %>-eth*" {
+			hello 1;
+			dead 3;
+		};
+	<%- @ospfv3["stub_itfs"].each do |val| -%>
+		interface "<%= val %>" {
+			stub 1;
+		};
+	<%- end -%>
+    };
+}
+
+<%- if @bgp["isBorderRouter"] == true -%>
+	
+protocol static static_bgp{
+	route <%= @bgp["export_prefix"] %> reject;
+}
+
+protocol bgp provider {
+	local as <%= @bgp["local_as"] %>;
+	neighbor <%= @bgp["neighbor_ip"] %> as <%= @bgp["neighbor_as"]%>;
+	#source address <%= @bgp["source_ip"] %>;
+	export where proto = "static_bgp";
+	import all;
+}
+<%- end -%>

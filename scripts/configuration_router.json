@@ -1,0 +1,148 @@
+{
+  "Carnoy":
+  {
+    "router_id" : "1",
+    "location_bits": "0010",
+    "eths":
+    {
+      "eth0": "00000",
+      "eth1": "00001",
+      "eth2": "00010"
+    },
+    "neighbor":
+    {
+      "eth0": "Michotte-eth1",
+      "eth1": "Pythagore-eth1",
+      "eth2": "Stevin-eth0"
+    },
+    "isp": {},
+    "extra_ip_command": [],
+    "lans": {}
+  },
+  "Halles":
+  {
+    "router_id" : "2",
+    "location_bits": "1000",
+    "eths":
+    {
+      "eth0": "00000",
+      "eth1": "00010"
+    },
+    "neighbor":
+    {
+      "eth0": "SH1C-eth1",
+      "eth1": "Pythagore-eth0"
+    },
+    "isp":
+    {
+      "belnetb":
+      {
+        "self_address": "fd00:200::1/48"
+      }
+    },
+    "extra_ip_command":
+    [
+      "ip -6 rule add from fd00:300:1::/48 to fd00:200:3::/48 pref 1000 table main",
+      "ip -6 rule add from fd00:300:1::/48 to fd00:300:3::/48 pref 1000 table main",
+      "ip -6 route add ::/0 via fd00:300:1:ff02::4 dev Halles-eth1 metric 1 table 10",
+      "ip -6 rule add from fd00:300:1::/48 pref 2000 table 10"
+    ],
+    "lans": {}
+
+  },
+  "Michotte":
+  {
+    "router_id" : "3",
+    "location_bits": "1010",
+    "eths":
+    {
+      "eth0": "00001",
+      "eth1": "00000"
+    },
+    "neighbor":
+    {
+      "eth0": "SH1C-eth0",
+      "eth1": "Carnoy-eth0"
+    },
+    "isp": {},
+    "extra_ip_command": [],
+    "lans":
+    {
+      "lan0": "00000"
+    }
+  },
+  "Pythagore":
+  {
+    "router_id" : "4",
+    "location_bits": "0000",
+    "eths":
+    {
+      "eth0": "00010",
+      "eth1": "00001",
+      "eth2": "00000"
+    },
+    "neighbor":
+    {
+      "eth0": "Halles-eth1",
+      "eth1": "Carnoy-eth1",
+      "eth2": "Stevin-eth2"
+    },
+    "isp":
+    {
+      "belneta":
+      {
+        "self_address": "fd00:300::1/48"
+      }
+
+    },
+    "extra_ip_command":
+    [
+      "ip -6 rule add from fd00:200:1::/48 to fd00:200:3::/48 pref 1000 table main",
+      "ip -6 rule add from fd00:200:1::/48 to fd00:300:3::/48 pref 1000 table main",
+      "ip -6 route add ::/0 via fd00:200:1:ff02::2 dev Pythagore-eth0 metric 1 table 10",
+      "ip -6 rule add from fd00:200:1::/48 pref 2000 table 10"
+    ],
+    "lans":
+    {
+      "lan0": "00000",
+      "lan1": "11111"
+    }
+  },
+  "SH1C":
+  {
+    "router_id" : "5",
+    "location_bits": "1100",
+    "eths":
+    {
+      "eth0": "00001",
+      "eth1": "00000"
+    },
+    "neighbor":
+    {
+      "eth0": "Michotte-eth0",
+      "eth1": "Halles-eth0"
+    },
+    "isp": {},
+    "extra_ip_command": [],
+    "lans": {}
+  },
+  "Stevin":
+  {
+    "router_id" : "6",
+    "location_bits": "0100",
+    "eths":
+    {
+      "eth0": "00010",
+      "eth1": "00000"
+    },
+    "neighbor":
+    {
+      "eth0": "Carnoy-eth2",
+      "eth1": "Pythagore-eth2"
+    },
+    "isp": {},
+    "extra_ip_command": [],
+    "lans": {}
+  }
+}
+
