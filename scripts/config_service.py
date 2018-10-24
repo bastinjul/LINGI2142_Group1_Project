@@ -23,6 +23,12 @@ for service, configs in data.items():
 
     service_config.write("\nip -6 route add ::/0 via " + configs["default_route"] + "\n")
 
+    service_config.write("\n")
+
+    if "extra_commands" in configs:
+        for command in configs["extra_commands"]:
+            service_config.write(command + " \n")    
+
     service_config.close()
 
     service_boot = open(MAIN_PATH + "ucl_minimal_cfg/" + service + "_boot.sh", "w")
@@ -30,9 +36,9 @@ for service, configs in data.items():
     service_boot.write("sysctl -p")
     service_boot.close()
 
-    #service_sysctl = open(MAIN_PATH + "ucl_minimal_cfg/" + service + "/sysctl.conf", "w")
-    #service_sysctl.write("net.ipv6.conf.all.disable_ipv6=0\n" + "net.ipv6.conf.all.forwarding=1\n" + "net.ipv6.conf.default.disable_ipv6=0\n" + "net.ipv6.conf.default.forwarding=1")
-    #service_sysctl.close()
+    service_sysctl = open(MAIN_PATH + "ucl_minimal_cfg/" + service + "/sysctl.conf", "w")
+    service_sysctl.write("net.ipv6.conf.all.disable_ipv6=0\n" + "net.ipv6.conf.all.forwarding=1\n" + "net.ipv6.conf.default.disable_ipv6=0\n" + "net.ipv6.conf.default.forwarding=1")
+    service_sysctl.close()
 
     # Add execution right to _start.sh file
     file_stat = os.stat(MAIN_PATH + "ucl_minimal_cfg/" + service + "_start.sh")

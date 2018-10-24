@@ -1,12 +1,12 @@
 #!/bin/bash 
 
 
-ip link set dev Stevin-eth0 up 
-ip address add dev Stevin-eth0 fd00:200:1:fe42::6/64 
-ip address add dev Stevin-eth0 fd00:300:1:fe42::6/64 
 ip link set dev Stevin-eth1 up 
 ip address add dev Stevin-eth1 fd00:200:1:fe00::6/64 
 ip address add dev Stevin-eth1 fd00:300:1:fe00::6/64 
+ip link set dev Stevin-eth0 up 
+ip address add dev Stevin-eth0 fd00:200:1:fe42::6/64 
+ip address add dev Stevin-eth0 fd00:300:1:fe42::6/64 
 
 
 

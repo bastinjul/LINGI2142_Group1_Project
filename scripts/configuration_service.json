@@ -4,21 +4,30 @@
     "location_bits": "0000",
     "end_address": "::1",
     "sub_network_prefix": "00000",
-    "default_route": "fd00:300:1:f600::4"
+    "default_route": "fd00:300:1:f600::4",
+    "extra_commands":
+    [
+      "named -6 -c /etc/bind/named1.conf"
+    ]
   },
   "NS2":
   {
     "location_bits": "1010",
     "end_address": "::1",
     "sub_network_prefix": "00000",
-    "default_route": "fd00:200:1:f740::3"
+    "default_route": "fd00:200:1:f740::3",
+    "extra_commands":
+    [
+      "named -6 -c /etc/bind/named2.conf" 
+    ]
   },
   "MONITORING":
   {
     "location_bits": "0000",
     "end_address": "::100",
     "sub_network_prefix": "11111",
-    "default_route": "fd00:300:1:f61f::4"
+    "default_route": "fd00:300:1:f61f::4",
+    "extra_commands": []
   }
 }
 
