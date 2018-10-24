@@ -67,15 +67,15 @@ ip6tables -A FORWARD -p ospf -j ACCEPT
 
 # uniquely for border router:
 # allow bgp protocol port 179 through tcp
-ip6tables -A INPUT -p tcp --ports 179 -j ACCEPT
-ip6tables -A OUTPUT -p tcp --ports 179 -j ACCEPT
-ip6tables -A FORWARD -p tcp --ports 179 -j ACCEPT
+ip6tables -A INPUT -p tcp --destination-ports 179 -j ACCEPT
+ip6tables -A OUTPUT -p tcp --destination-ports 179 -j ACCEPT
+ip6tables -A FORWARD -p tcp --destination-ports 179 -j ACCEPT
 
 # DHCP  UDP port number 67 is the destination port of a server, 
 # and UDP port number 68 is used by the client. 
-ip6tables -A INPUT -p udp --ports 67,68 -j ACCEPT
-ip6tables -A OUTPUT -p udp --ports 67,68 -j ACCEPT
-ip6tables -A FORWARD -p udp --ports 67,68 -j ACCEPT
+ip6tables -A INPUT -p udp --destination-ports 67,68 -j ACCEPT
+ip6tables -A OUTPUT -p udp --destination-ports 67,68 -j ACCEPT
+ip6tables -A FORWARD -p udp --destination-ports 67,68 -j ACCEPT
 
 for i in 200 300;
 do
@@ -83,19 +83,19 @@ do
 	do
 		address=fd00:$i:1:$j::1
 		# Allowing Traffic DNS to the two dataserver
-		ip6tables -A INPUT -s address -p udp --ports 53 -j ACCEPT
-		ip6tables -A OUTPUT -d address -p udp --ports 53 -j ACCEPT
-		ip6tables -A FORWARD -d address -p udp --ports 53 -j ACCEPT
+		ip6tables -A INPUT -s address -p udp --destination-ports 53 -j ACCEPT
+		ip6tables -A OUTPUT -d address -p udp --destination-ports 53 -j ACCEPT
+		ip6tables -A FORWARD -d address -p udp --destination-ports 53 -j ACCEPT
 	done
 done
 # We drop the DNS traffic to another address in the network
-ip6tables -A INPUT -p udp --ports 53 -j DROP
-ip6tables -A INPUT -p tcp --ports 53 -j DROP
+ip6tables -A INPUT -p udp --destination-ports 53 -j DROP
+ip6tables -A INPUT -p tcp --destination-ports 53 -j DROP
 # But the DNS traffic for outside of the network is accepted
-ip6tables -A OUTPUT -p udp --ports 53 -j ACCEPT
-ip6tables -A OUTPUT -p tcp --ports 53 -j ACCEPT
-ip6tables -A FORWARD -p udp --ports 53 -j ACCEPT
-ip6tables -A FORWARD -p tcp --ports 53 -j ACCEPT
+ip6tables -A OUTPUT -p udp --destination-ports 53 -j ACCEPT
+ip6tables -A OUTPUT -p tcp --destination-ports 53 -j ACCEPT
+ip6tables -A FORWARD -p udp --destination-ports 53 -j ACCEPT
+ip6tables -A FORWARD -p tcp --destination-ports 53 -j ACCEPT
 
 for i in 200 300;
 do
@@ -105,16 +105,16 @@ do
 	do
 		address=fd00:$i:1:$j::/55
 		# http (port 80) and https (port 443)
-		ip6tables -A FORWARD -s address -p tcp --ports 80,443 -j ACCEPT
+		ip6tables -A FORWARD -s address -p tcp --destination-ports 80,443 -j ACCEPT
 	
 		# smtp (port 25)
-		ip6tables -A FORWARD -s address -p tcp --ports 25 -j ACCEPT
+		ip6tables -A FORWARD -s address -p tcp --destination-ports 25 -j ACCEPT
 		
 		# pop (port 110 or 995 (with ssl))
-		ip6tables -A FORWARD -s address -p tcp --ports 110,995 -j ACCEPT
+		ip6tables -A FORWARD -s address -p tcp --destination-ports 110,995 -j ACCEPT
 		
 		# imap (port 143 or 993 (for imaps but discouraged by RFC 2595))
-		ip6tables -A FORWARD -s address -p tcp --ports 143,993 -j ACCEPT
+		ip6tables -A FORWARD -s address -p tcp --destination-ports 143,993 -j ACCEPT
 	done
 	
 	# student + staff
@@ -122,7 +122,7 @@ do
 	for j in "f200" "f400";
 	do 
 		address=fd00:$i:1:$j::/55
-		ip6tables -A FORWARD -s address -p tcp --ports 22 -j ACCEPT
+		ip6tables -A FORWARD -s address -p tcp --destination-ports 22 -j ACCEPT
 	done
 done
 
