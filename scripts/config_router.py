@@ -10,13 +10,7 @@ for router, configs in data.items():
 
     start_config = open(MAIN_PATH + "ucl_minimal_cfg/" + router + "_start.sh", "w")
     start_config.write("#!/bin/bash \n\n")
-    if router in ["Pytagore", "Halles"]:
-        start_config.write("ip netns exec " + router + " " + MAIN_PATH + "firewall/border_router.sh\n\n")
-    else:
-        start_config.write("ip netns exec " + router + " " + MAIN_PATH + "firewall/internal_router.sh\n\n")
-    start_config.write("puppet apply --verbose --parser future --hiera_config=/etc/puppet/hiera.yaml /etc/puppet/site.pp --modulepath=/puppetmodules \n\n")
-
-    # for bgp
+        # for bgp
 
     for isp, isp_conf in configs["isp"].items():
         start_config.write("ip link set dev " + isp + " up \n")
@@ -49,12 +43,20 @@ for router, configs in data.items():
         for prefix in PREFIXES:
             prefix_end_bits = "1111011" + configs["location_bits"] + end_prefix
             prefix_end = '%04x' % int(prefix_end_bits, 2)
-            start_config.write("ip address add dev " + router + "-" + lan + " " + prefix + prefix_end + "::/64 \n")
+            start_config.write("ip address add dev " + router + "-" + lan + " " + prefix + prefix_end + "::" + configs["router_id"] + "/64 \n")
 
     start_config.write("\n")
 
     if "extra_ip_command" in configs:
         for command in configs["extra_ip_command"]:
             start_config.write(command + " \n")
+    
+    start_config.write("\n")
+    if router in ["Pytagore", "Halles"]:
+        start_config.write(MAIN_PATH + "firewall/border_router.sh\n\n")
+    else:
+        start_config.write(MAIN_PATH + "firewall/internal_router.sh\n\n")
+    start_config.write("puppet apply --verbose --parser future --hiera_config=/etc/puppet/hiera.yaml /etc/puppet/site.pp --modulepath=/puppetmodules \n\n")
+
 
     start_config.write("\n")
