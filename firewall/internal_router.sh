@@ -80,9 +80,9 @@ do
 	do
 		address=fd00:$i:1:$j::1
 		# Allowing Traffic DNS to the two dataserver
-		ip6tables -A INPUT -s address -p udp --dport 53 -j ACCEPT
-		ip6tables -A OUTPUT -d address -p udp --dport 53 -j ACCEPT
-		ip6tables -A FORWARD -d address -p udp --dport 53 -j ACCEPT
+		ip6tables -A INPUT -s $address -p udp --dport 53 -j ACCEPT
+		ip6tables -A OUTPUT -d $address -p udp --dport 53 -j ACCEPT
+		ip6tables -A FORWARD -d $address -p udp --dport 53 -j ACCEPT
 	done
 done
 # We drop the DNS traffic to another address in the network
@@ -104,22 +104,22 @@ do
 		# http (port 80) and https (port 443)
 		for k in 80 443;
 		do
-			ip6tables -A FORWARD -s address -p tcp --dport $k -j ACCEPT
+			ip6tables -A FORWARD -s $address -p tcp --dport $k -j ACCEPT
 		done		
 
 		# smtp (port 25)
-		ip6tables -A FORWARD -s address -p tcp --dport 25 -j ACCEPT
+		ip6tables -A FORWARD -s $address -p tcp --dport 25 -j ACCEPT
 		
 		# pop (port 110 or 995 (with ssl))
 		for k in 110 995;
 		do
-			ip6tables -A FORWARD -s address -p tcp --dport $k -j ACCEPT
+			ip6tables -A FORWARD -s $address -p tcp --dport $k -j ACCEPT
 		done
 		
 		# imap (port 143 or 993 (for imaps but discouraged by RFC 2595))
 		for k in 143 993;
 		do
-			ip6tables -A FORWARD -s address -p tcp --dport $k -j ACCEPT
+			ip6tables -A FORWARD -s $address -p tcp --dport $k -j ACCEPT
 		done
 	done
 	
@@ -128,7 +128,7 @@ do
 	for j in "f200" "f400";
 	do 
 		address=fd00:$i:1:$j::/55
-		ip6tables -A FORWARD -s address -p tcp --dport 22 -j ACCEPT
+		ip6tables -A FORWARD -s $address -p tcp --dport 22 -j ACCEPT
 	done
 done
 
@@ -138,4 +138,7 @@ do
 	ip6tables -A INPUT -p udp --dport $i -j ACCEPT
 	ip6tables -A OUTPUT -p udp --dport $i -j ACCEPT
 	ip6tables -A FORWARD -p udp --dport $i -j ACCEPT
+	ip6tables -A INPUT -p udp --sport $i -j ACCEPT
+	ip6tables -A OUTPUT -p udp --sport $i -j ACCEPT
+	ip6tables -A FORWARD -p udp --sport $i -j ACCEPT
 done

@@ -27,7 +27,7 @@ for service, configs in data.items():
 
     if "extra_commands" in configs:
         for command in configs["extra_commands"]:
-            service_config.write(command + " \n")    
+            service_config.write(command + " \n")
 
     service_config.close()
 
@@ -35,6 +35,9 @@ for service, configs in data.items():
     service_boot.write("#!/bin/bash \n\n")
     service_boot.write("sysctl -p")
     service_boot.close()
+
+    if not os.path.exists(MAIN_PATH + "ucl_minimal_cfg/" + service):
+        os.makedirs(MAIN_PATH + "ucl_minimal_cfg/" + service)
 
     service_sysctl = open(MAIN_PATH + "ucl_minimal_cfg/" + service + "/sysctl.conf", "w")
     service_sysctl.write("net.ipv6.conf.all.disable_ipv6=0\n" + "net.ipv6.conf.all.forwarding=1\n" + "net.ipv6.conf.default.disable_ipv6=0\n" + "net.ipv6.conf.default.forwarding=1")

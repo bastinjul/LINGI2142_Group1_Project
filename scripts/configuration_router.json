@@ -17,7 +17,8 @@
     },
     "isp": {},
     "extra_ip_command": [],
-    "lans": {}
+    "lans": {},
+    "vlan": "lan0"
   },
   "Halles":
   {
@@ -47,7 +48,8 @@
       "ip -6 route add ::/0 via fd00:300:1:ff02::4 dev Halles-eth1 metric 1 table 10",
       "ip -6 rule add from fd00:300:1::/48 pref 2000 table 10"
     ],
-    "lans": {}
+    "lans": {},
+    "vlan": "lan0"
 
   },
   "Michotte":
@@ -69,7 +71,8 @@
     "lans":
     {
       "lan0": "00000"
-    }
+    },
+    "vlan": "lan1"
   },
   "Pythagore":
   {
@@ -106,7 +109,8 @@
     {
       "lan0": "00000",
       "lan1": "11111"
-    }
+    },
+    "vlan": "lan2"
   },
   "SH1C":
   {
@@ -124,7 +128,8 @@
     },
     "isp": {},
     "extra_ip_command": [],
-    "lans": {}
+    "lans": {},
+    "vlan": "lan0"
   },
   "Stevin":
   {
@@ -142,7 +147,8 @@
     },
     "isp": {},
     "extra_ip_command": [],
-    "lans": {}
+    "lans": {},
+    "vlan": "lan0"
   }
 }
 
