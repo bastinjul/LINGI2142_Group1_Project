@@ -55,3 +55,4 @@ quagga:x:114:
 bird:x:115:
 puppet:x:116:
 snmp:x:117:
+bind:x:118:

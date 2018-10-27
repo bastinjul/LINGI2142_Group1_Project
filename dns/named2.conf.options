@@ -4,7 +4,7 @@ acl intern_user {
 };
 
 options {
-	directory "/var/cache/bind/ns2";
+	directory "/var/cache/bind/";
 
 	// If there is a firewall between you and nameservers you want
 	// to talk to, you may need to fix the firewall to allow multiple
