@@ -12,8 +12,8 @@ $TTL	86400
 			2419200		; Expire
 			  86400 )	; Negative Cache TTL
 ;
-@	IN	NS	ns1.group1.ingi.
-@	IN	NS	ns2.group1.ingi.
+@	IN	NS	NS1.group1.ingi.
+@	IN	NS	NS2.group1.ingi.
 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.6.f	IN	PTR	NS1.service.group1.ingi.
 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.4.7.f	IN	PTR	NS2.service.group1.ingi.
 

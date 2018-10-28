@@ -4,7 +4,8 @@ acl intern_user {
 };
 
 options {
-	directory "/var/cache/bind/";
+	directory "/var/cache/bind";
+	pid-file "/var/run/named/named.pid";
 
 	// If there is a firewall between you and nameservers you want
 	// to talk to, you may need to fix the firewall to allow multiple

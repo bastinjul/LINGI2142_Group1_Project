@@ -11,8 +11,8 @@ $TTL	86400
 			2419200		; Expire
 			  86400 )	; Negative Cache TTL
 ;
-@	IN	NS	ns1.group1.ingi.
-@	IN	NS	ns2.group1.ingi.
+@	IN	NS	NS1.group1.ingi.
+@	IN	NS	NS2.group1.ingi.
 Halles	IN	AAAA	fd00:200:1:ff00::2
 Halles	IN	AAAA	fd00:300:1:ff00::2
 Pythagore	IN	AAAA	fd00:200:1:fe00::4

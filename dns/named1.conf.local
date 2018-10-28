@@ -18,7 +18,7 @@ zone "router.group1.ingi" IN {
 	allow-transfer {intern_user;};
 };
 
-zone "service:group1:ingi" IN {
+zone "service.group1.ingi" IN {
 	type master;
 	file "/etc/bind/zones/db.service.group1.ingi";
 	allow-query {intern_user;};
