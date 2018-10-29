@@ -23,6 +23,8 @@ def ping_all_routers(data):
 def print_ping_result(res):
     for add in res:
         if res[add] == 0:
-            print("Ping to the address {} from the {} node:\t\tSUCCESS".format(add,sys.argv[1]))
+            print("Ping to the address {} from the {} node:\t\tSUCCESS".format(add,sys.argv[0]))
         else:
-            print("Ping to the address {} from the {} node:\t\tFAILED".format(add,sys.argv[1]))
+            print("Ping to the address {} from the {} node:\t\tFAILED".format(add,sys.argv[0]))
+
+print_ping_result(ping_all_routers(data))
