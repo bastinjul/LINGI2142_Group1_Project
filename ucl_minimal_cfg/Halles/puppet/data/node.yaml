@@ -6,7 +6,8 @@ bird6::ospfv3:
   hello_itfs:  # Activate OSPFv3 only on these interfaces
     - Halles-eth0
     - Halles-eth1
-  stub_itfs: [] # Passive interfaces (e.g., LANs)
+  stub_itfs:
+    - Halles-lan0
 bird6::bgp:
   isBorderRouter: true
   local_as: 1

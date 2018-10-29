@@ -1,0 +1,123 @@
+{
+  "Ca0":
+  {
+    "user_bits": "000",
+    "location_bits": "0010"
+  },
+  "Ca1":
+  {
+    "user_bits": "001",
+    "location_bits": "0010"
+  },
+  "Ca2":
+  {
+    "user_bits": "010",
+    "location_bits": "0010"
+  },
+  "Ca5":
+  {
+    "user_bits": "101",
+    "location_bits": "0010"
+  },
+  "Ha0":
+  {
+    "user_bits": "000",
+    "location_bits": "1000"
+  },
+  "Ha1":
+  {
+    "user_bits": "001",
+    "location_bits": "1000"
+  },
+  "Ha2":
+  {
+    "user_bits": "010",
+    "location_bits": "1000"
+  },
+  "Ha5":
+  {
+    "user_bits": "101",
+    "location_bits": "1000"
+  },
+  "Py0":
+  {
+    "user_bits": "000",
+    "location_bits": "0000"
+  },
+  "Py1":
+  {
+    "user_bits": "001",
+    "location_bits": "0000"
+  },
+  "Py2":
+  {
+    "user_bits": "010",
+    "location_bits": "0000"
+  },
+  "Py5":
+  {
+    "user_bits": "101",
+    "location_bits": "0000"
+  },
+  "Mi0":
+  {
+    "user_bits": "000",
+    "location_bits": "1010"
+  },
+  "Mi1":
+  {
+    "user_bits": "001",
+    "location_bits": "1010"
+  },
+  "Mi2":
+  {
+    "user_bits": "010",
+    "location_bits": "1010"
+  },
+  "Mi5":
+  {
+    "user_bits": "101",
+    "location_bits": "1010"
+  },
+  "St0":
+  {
+    "user_bits": "000",
+    "location_bits": "0100"
+  },
+  "St1":
+  {
+    "user_bits": "001",
+    "location_bits": "0100"
+  },
+  "St2":
+  {
+    "user_bits": "010",
+    "location_bits": "0100"
+  },
+  "St5":
+  {
+    "user_bits": "101",
+    "location_bits": "0100"
+  },
+  "SH0":
+  {
+    "user_bits": "000",
+    "location_bits": "1100"
+  },
+  "SH1":
+  {
+    "user_bits": "001",
+    "location_bits": "1100"
+  },
+  "SH2":
+  {
+    "user_bits": "010",
+    "location_bits": "1100"
+  },
+  "SH5":
+  {
+    "user_bits": "101",
+    "location_bits": "1100"
+  }
+}
+

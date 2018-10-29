@@ -12,8 +12,9 @@ from snmpfun import *
 
 """AGENT MONITOR"""
 class Agent_monitor(threading.Thread):
-    def __init__(self, stop_event, ip, db_directory, snmpv3_user, data_collect_funs):
+    def __init__(self, stop_event, agent, ip, db_directory, snmpv3_user, data_collect_funs):
         threading.Thread.__init__(self)
+        self.agent = agent
         self.stop_event = stop_event
         self.ip = ip
         self.db_directory = db_directory
@@ -58,15 +59,12 @@ snmpv3_user = {
 with open('agent_list.conf', 'r') as f:
     for line in f:
         agent_name, agent_ip = line.split()
+	print(agent_name,agent_ip)
         db_directory = os.path.join('monitoring', agent_name)
         if not os.path.exists(db_directory):
             os.makedirs(db_directory)
-        initialize_ram_info_db(db_directory)
-        initialize_cpu_info_db(db_directory)
         initialize_ip_info_db(db_directory)
-        initialize_udp_info_db(db_directory)
-        initialize_tcp_info_db(db_directory)
-        threads.append(Agent_monitor(stop_event, agent_ip, db_directory, snmpv3_user, [ram_info, cpu_info, ip_info, udp_info, tcp_info]))
+        threads.append(Agent_monitor(stop_event, agent_name, agent_ip, db_directory, snmpv3_user, [ip_info]))
 
 # Start monitoring each agent
 for th in threads:

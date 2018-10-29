@@ -9,19 +9,18 @@
 # Server1 address:		prefix:f600::2
 # Server2 address:		prefix:f740::2
 # admin addresses: 		prefix:f000::/55
-# student addresses:	prefix:f200::/55
+# student addresses:		prefix:f200::/55
 # staff addresses:		prefix:f400::/55
-# service addresses:	prefix:f600::/55
+# service addresses:		prefix:f600::/55
 # guests addresses:		prefix:f800::/55
 # others addresses:		prefix:fa00::/55
 
 # reset ip6tables configuration
 ip6tables -F
+
 ip6tables -t INPUT -F
 ip6tables -t OUTPUT -F
 ip6tables -t FORWARD -F
-
-# Any router as for now
 
 # default policy
 # if no rule before matched the packet we drop it
@@ -38,13 +37,13 @@ do
 done
 	
 # authorize the traffic of an already open connection (ESTABLISHED)
-ip6tables -A INPUT -m conntrack --state ESTABLISHED -j ACCEPT
-ip6tables -A OUTPUT -m conntrack --state ESTABLISHED -j ACCEPT
-ip6tables -A FORWARD -m conntrack --state ESTABLISHED -j ACCEPT
+ip6tables -A INPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
+ip6tables -A OUTPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
+ip6tables -A FORWARD -m conntrack --ctstate ESTABLISHED -j ACCEPT
 
-# allow the local traffic (so on the loopback interface)
+# allow the local traffic (so on the loopback interface) (can't use -i with output)
 ip6tables -A INPUT -i lo -j ACCEPT
-ip6tables -A OUTPUT -i lo -j ACCEPT
+ip6tables -A FORWARD -i lo -j ACCEPT
 
 # Drop INVALID packets
 ip6tables -A INPUT -m state --state INVALID -j DROP 
@@ -61,9 +60,9 @@ ip6tables -A OUTPUT -p icmpv6 -j ACCEPT
 ip6tables -A FORWARD -p icmpv6 -j ACCEPT
 
 # allow ospf protocol 
-ip6tables -A INPUT -p ospf -j ACCEPT
-ip6tables -A OUTPUT -p ospf -j ACCEPT
-ip6tables -A FORWARD -p ospf -j ACCEPT
+ip6tables -A INPUT -p 89 -j ACCEPT
+ip6tables -A OUTPUT -p 89 -j ACCEPT
+ip6tables -A FORWARD -p 89 -j ACCEPT
 
 # uniquely for border router:
 # allow bgp protocol port 179 through tcp
@@ -86,9 +85,9 @@ do
 	do
 		address=fd00:$i:1:$j::1
 		# Allowing Traffic DNS to the two dataserver
-		ip6tables -A INPUT -s address -p udp --dport 53 -j ACCEPT
-		ip6tables -A OUTPUT -d address -p udp --dport 53 -j ACCEPT
-		ip6tables -A FORWARD -d address -p udp --dport 53 -j ACCEPT
+		ip6tables -A INPUT -s $address -p udp --dport 53 -j ACCEPT
+		ip6tables -A OUTPUT -d $address -p udp --dport 53 -j ACCEPT
+		ip6tables -A FORWARD -d $address -p udp --dport 53 -j ACCEPT
 	done
 done
 # We drop the DNS traffic to another address in the network
@@ -110,22 +109,22 @@ do
 		# http (port 80) and https (port 443)
 		for k in 80 443;
 		do
-			ip6tables -A FORWARD -s address -p tcp --dport $k -j ACCEPT
+			ip6tables -A FORWARD -s $address -p tcp --dport $k -j ACCEPT
 		done
 	
 		# smtp (port 25)
-		ip6tables -A FORWARD -s address -p tcp --dport 25 -j ACCEPT
+		ip6tables -A FORWARD -s $address -p tcp --dport 25 -j ACCEPT
 		
 		# pop (port 110 or 995 (with ssl))
 		for k in 110 995;
 		do
-			ip6tables -A FORWARD -s address -p tcp --dport $k -j ACCEPT
+			ip6tables -A FORWARD -s $address -p tcp --dport $k -j ACCEPT
 		done
 		
 		# imap (port 143 or 993 (for imaps but discouraged by RFC 2595))
 		for k in 143 993;
 		do
-			ip6tables -A FORWARD -s address -p tcp --dport $k -j ACCEPT
+			ip6tables -A FORWARD -s $address -p tcp --dport $k -j ACCEPT
 		done
 	done
 	
@@ -134,7 +133,7 @@ do
 	for j in "f200" "f400";
 	do 
 		address=fd00:$i:1:$j::/55
-		ip6tables -A FORWARD -s address -p tcp --dport 22 -j ACCEPT
+		ip6tables -A FORWARD -s $address -p tcp --dport 22 -j ACCEPT
 	done
 done
 
@@ -144,4 +143,7 @@ do
 	ip6tables -A INPUT -p udp --dport $i -j ACCEPT
 	ip6tables -A OUTPUT -p udp --dport $i -j ACCEPT
 	ip6tables -A FORWARD -p udp --dport $i -j ACCEPT
+	ip6tables -A INPUT -p udp --sport $i -j ACCEPT
+	ip6tables -A OUTPUT -p udp --sport $i -j ACCEPT
+	ip6tables -A FORWARD -p udp --sport $i -j ACCEPT
 done
