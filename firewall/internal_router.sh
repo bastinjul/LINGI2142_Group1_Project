@@ -17,6 +17,7 @@
 
 # reset ip6tables configuration
 ip6tables -F
+
 ip6tables -t INPUT -F
 ip6tables -t OUTPUT -F
 ip6tables -t FORWARD -F
@@ -38,13 +39,12 @@ do
 done
 	
 # authorize the traffic of an already open connection (ESTABLISHED)
-ip6tables -A INPUT -m conntrack --state ESTABLISHED -j ACCEPT
-ip6tables -A OUTPUT -m conntrack --state ESTABLISHED -j ACCEPT
-ip6tables -A FORWARD -m conntrack --state ESTABLISHED -j ACCEPT
+ip6tables -A INPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
+ip6tables -A OUTPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
+ip6tables -A FORWARD -m conntrack --ctstate ESTABLISHED -j ACCEPT
 
-# allow the local traffic (so on the loopback interface)
+# allow the local traffic (so on the loopback interface) (can't use -i with OUTPUT)
 ip6tables -A INPUT -i lo -j ACCEPT
-ip6tables -A OUTPUT -i lo -j ACCEPT
 
 # Drop INVALID packets
 ip6tables -A INPUT -m state --state INVALID -j DROP 
@@ -61,9 +61,9 @@ ip6tables -A OUTPUT -p icmpv6 -j ACCEPT
 ip6tables -A FORWARD -p icmpv6 -j ACCEPT
 
 # allow ospf protocol 
-ip6tables -A INPUT -p ospf -j ACCEPT
-ip6tables -A OUTPUT -p ospf -j ACCEPT
-ip6tables -A FORWARD -p ospf -j ACCEPT
+ip6tables -A INPUT -p 89 -j ACCEPT
+ip6tables -A OUTPUT -p 89 -j ACCEPT
+ip6tables -A FORWARD -p 89 -j ACCEPT
 
 # DHCP  UDP port number 67 is the destination port of a server, 
 # and UDP port number 68 is used by the client. 

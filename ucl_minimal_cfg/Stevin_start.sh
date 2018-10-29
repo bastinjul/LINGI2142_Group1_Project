@@ -1,5 +1,7 @@
 #!/bin/bash 
 
+/home/vagrant/LINGI2142_Group1_Project/firewall/internal_router.sh
+
 puppet apply --verbose --parser future --hiera_config=/etc/puppet/hiera.yaml /etc/puppet/site.pp --modulepath=/puppetmodules 
 
 
