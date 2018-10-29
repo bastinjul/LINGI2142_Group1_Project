@@ -7,6 +7,8 @@ from pyasn1.type.univ import *
 # Round-Robin Database 
 import rrdtool 
 
+# author Maxime Mawait, inspired from https://oss.oetiker.ch/rrdtool/tut/rrdtutorial.en.html and https://makina-corpus.com/blog/metier/2016/initiation-a-snmp-avec-python-pysnmp-partie2
+
 """CONSTANTS"""
 TIME_INTERVAL = 10
 TIME_WAIT_VALUE = 15

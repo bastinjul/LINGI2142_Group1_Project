@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os, subprocess, re, json, sys, time
 
+DIG = 'test_dig.py'
 PING = 'test_ping6.py'
 WORKING_NODE = 'Nope'
 RUN = './run_test.sh'
@@ -17,5 +18,13 @@ def test_ping(data):
         print(p.communicate)
         time.sleep(0.5)
 
-test_ping(data)
+def test_dig(data):
+    global WORKING_NODE
+    for r in data:
+        WORKING_NODE = r
+        p = subprocess.Popen('sudo {} {} {} {}'.format(RUN, CONFIG, r, DIG), stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell = True)
+        print(p.communicate)
+        time.sleep(0.5)
 
+test_ping(data)
+test_dig(data)

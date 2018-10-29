@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# author: Maxime Mawait, inspired from http://snmplabs.com/pysnmp/examples/v3arch/asyncore/manager/ntfrcv/snmp-versions.html
 from pysnmp.entity import engine, config
 from pysnmp.carrier.asyncore.dgram import udp6
 from pysnmp.entity.rfc3413 import ntfrcv

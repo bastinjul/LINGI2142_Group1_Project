@@ -10,6 +10,8 @@ import threading
 # SNMP getter functions
 from snmpfun import *
 
+# author: Maxime Mawait, inspired from https://makina-corpus.com/blog/metier/2016/initiation-a-snmp-avec-python-pysnmp-partie2
+
 """AGENT MONITOR"""
 class Agent_monitor(threading.Thread):
     def __init__(self, stop_event, agent, ip, db_directory, snmpv3_user, data_collect_funs):
