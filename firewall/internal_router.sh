@@ -137,5 +137,5 @@ for i in 161 162;
 do
 	ip6tables -A INPUT -p udp --dport $i -j ACCEPT
 	ip6tables -A OUTPUT -p udp --dport $i -j ACCEPT
-	ip6tables -A FORWARD -p udp --dport $i -j ACCEPT
+	ip6tables -A F -p udp --dport $i -j ACCEPT
 done
