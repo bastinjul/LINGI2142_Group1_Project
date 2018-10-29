@@ -139,3 +139,8 @@ do
 	ip6tables -A OUTPUT -p udp --sport $i -j ACCEPT
 	ip6tables -A FORWARD -p udp --sport $i -j ACCEPT
 done
+
+# dhcpv6 port 546 from client and 547 from server the client initialise the connection
+ip6tables -A INPUT -p udp --sport 546 --dport 547 -j ACCEPT
+ip6tables -A OUTPUT -p udp --sport 546 --dport 547 -j ACCEPT 
+ip6tables -A FORWARD -p udp --sport 546 --dport 547 -j ACCEPT

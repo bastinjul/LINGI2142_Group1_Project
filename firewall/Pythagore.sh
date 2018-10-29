@@ -59,15 +59,30 @@ ip6tables -A INPUT -p icmpv6 -j ACCEPT
 ip6tables -A OUTPUT -p icmpv6 -j ACCEPT
 ip6tables -A FORWARD -p icmpv6 -j ACCEPT
 
-# allow ospf protocol 
+# allow ospf protocol (but not going/from outside)
+# uniquely for border router
+ip6tables -A INPUT -i belneta -p 89 -j DROP
+ip6tables -A FORWARD -i belneta -p 89 -j DROP
+ip6tables -A OUTPUT -o belneta -p 89 -j DROP
+ip6tables -A FORWARD -o belneta -p 89 -j DROP
+# for all routers
 ip6tables -A INPUT -p 89 -j ACCEPT
 ip6tables -A OUTPUT -p 89 -j ACCEPT
 ip6tables -A FORWARD -p 89 -j ACCEPT
 
 # uniquely for border router:
-# allow bgp protocol port 179 through tcp
-ip6tables -A INPUT -p tcp -i belneta --dport 179 -j ACCEPT
-ip6tables -A FORWARD -p tcp -i belneta --dport 179 -j ACCEPT
+# allow bgp protocol port 179 through tcp but uniquely through the outside interface
+ip6tables -A INPUT -i belneta -p tcp --dport 179 -j ACCEPT
+ip6tables -A INPUT -i belneta -p tcp --sport 179 -j ACCEPT
+ip6tables -A OUTPUT -o belneta -p tcp --dport 179 -j ACCEPT
+
+# uniquely for border router:
+# drop packet with our addresses but coming from outside
+for i in 200 300;
+do
+	ip6tables -A INPUT -i belneta -s fd00:$i:1::/48 -j DROP
+	ip6tables -A FORWARD -i belneta -s fd00:$i:1::/48 -j DROP
+done
 
 # DHCP  UDP port number 67 is the destination port of a server, 
 # and UDP port number 68 is used by the client. 
@@ -139,10 +154,25 @@ done
 # snmp 
 for i in 161 162;
 do
-	ip6tables -A INPUT -p udp --dport $i -j ACCEPT
-	ip6tables -A OUTPUT -p udp --dport $i -j ACCEPT
-	ip6tables -A FORWARD -p udp --dport $i -j ACCEPT
-	ip6tables -A INPUT -p udp --sport $i -j ACCEPT
-	ip6tables -A OUTPUT -p udp --sport $i -j ACCEPT
-	ip6tables -A FORWARD -p udp --sport $i -j ACCEPT
+	for j in "--dport" "--sport";
+	do 
+		ip6tables -A INPUT -p udp $j $i -j ACCEPT
+		ip6tables -A OUTPUT -p udp $j $i -j ACCEPT
+		ip6tables -A FORWARD -p udp $j $i -j ACCEPT
+	done
 done
+
+# uniquely for border router
+# block DHCP going/from outside of the network
+for i in 546 547;
+do
+	ip6tables -A INPUT -p udp -i belneta --dport $i -j DROP
+	ip6tables -A FORWARD -p udp -i belneta --dport $i -j DROP
+	ip6tables -A OUTPUT -p udp -o belneta --dport $i -j DROP
+	ip6tables -A FORWARD -p udp -o belneta --dport $i -j DROP
+done
+
+# dhcpv6 port 546 from client and 547 from server the client initialise the connection
+ip6tables -A INPUT -p udp --sport 546 --dport 547 -j ACCEPT
+ip6tables -A OUTPUT -p udp --sport 546 --dport 547 -j ACCEPT 
+ip6tables -A FORWARD -p udp --sport 546 --dport 547 -j ACCEPT

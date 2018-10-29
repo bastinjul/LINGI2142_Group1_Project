@@ -154,10 +154,25 @@ done
 # snmp 
 for i in 161 162;
 do
-	ip6tables -A INPUT -p udp --dport $i -j ACCEPT
-	ip6tables -A OUTPUT -p udp --dport $i -j ACCEPT
-	ip6tables -A FORWARD -p udp --dport $i -j ACCEPT
-	ip6tables -A INPUT -p udp --sport $i -j ACCEPT
-	ip6tables -A OUTPUT -p udp --sport $i -j ACCEPT
-	ip6tables -A FORWARD -p udp --sport $i -j ACCEPT
+	for j in "--dport" "--sport";
+	do 
+		ip6tables -A INPUT -p udp $j $i -j ACCEPT
+		ip6tables -A OUTPUT -p udp $j $i -j ACCEPT
+		ip6tables -A FORWARD -p udp $j $i -j ACCEPT
+	done
 done
+
+# uniquely for border router
+# block DHCP going/from outside of the network
+for i in 546 547;
+do
+	ip6tables -A INPUT -p udp -i belnetb --dport $i -j DROP
+	ip6tables -A FORWARD -p udp -i belnetb --dport $i -j DROP
+	ip6tables -A OUTPUT -p udp -o belnetb --dport $i -j DROP
+	ip6tables -A FORWARD -p udp -o belnetb --dport $i -j DROP
+done
+
+# dhcpv6 port 546 from client and 547 from server the client initialise the connection
+ip6tables -A INPUT -p udp --sport 546 --dport 547 -j ACCEPT
+ip6tables -A OUTPUT -p udp --sport 546 --dport 547 -j ACCEPT 
+ip6tables -A FORWARD -p udp --sport 546 --dport 547 -j ACCEPT
