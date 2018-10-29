@@ -39,3 +39,4 @@ with open('ip-addr.json') as data_file:
 res = ping_all_routers
 print_ping_result(res)
 write_res('ping_res.js',res)
+
