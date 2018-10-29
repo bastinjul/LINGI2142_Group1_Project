@@ -59,7 +59,7 @@ snmpv3_user = {
 with open('agent_list.conf', 'r') as f:
     for line in f:
         agent_name, agent_ip = line.split()
-	print(agent_name,agent_ip)
+        print(agent_name,agent_ip)
         db_directory = os.path.join('monitoring', agent_name)
         if not os.path.exists(db_directory):
             os.makedirs(db_directory)

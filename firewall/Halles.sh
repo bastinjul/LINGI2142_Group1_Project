@@ -154,12 +154,12 @@ done
 # snmp 
 for i in 161 162;
 do
-	for j in "--dport" "--sport";
-	do 
-		ip6tables -A INPUT -p udp $j $i -j ACCEPT
-		ip6tables -A OUTPUT -p udp $j $i -j ACCEPT
-		ip6tables -A FORWARD -p udp $j $i -j ACCEPT
-	done
+	ip6tables -A INPUT -p udp --dport $i -j ACCEPT
+	ip6tables -A OUTPUT -p udp --dport $i -j ACCEPT
+	ip6tables -A FORWARD -p udp --dport $i -j ACCEPT
+	ip6tables -A INPUT -p udp --sport $i -j ACCEPT
+	ip6tables -A OUTPUT -p udp --sport $i -j ACCEPT
+	ip6tables -A FORWARD -p udp --sport $i -j ACCEPT
 done
 
 # uniquely for border router
