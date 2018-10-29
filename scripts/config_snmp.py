@@ -6,21 +6,20 @@ import os
 from constants import PREFIXES, SCRIPTS_PATH, MAIN_PATH, SNMP_FILE_PATH
 
 with open(SCRIPTS_PATH+'configuration_router.json') as data_file:
-    data1 = json.load(data_file)
+    data = json.load(data_file)
 
 with open(SCRIPTS_PATH+'configuration_service.json') as data_file:
-    data2 = json.load(data_file)
+    data_service = json.load(data_file)
 
-print(data1)
-print(data2)
 
-for r in data1:
+for r in data_service:
+	data[r] = data_service[r]
+
+for r in data:
+	print("INFO\tConfiguring SNMP for {} node".format(r))
 	if not os.path.exists(MAIN_PATH + 'ucl_minimal_cfg/'+r+'/snmp/'):
+		print("INFO\tCreating SNMP Configuration directory")
 		os.makedirs(MAIN_PATH + 'ucl_minimal_cfg/'+r+'/snmp/')
+	print("INFO\tCopying SNMP Configuration file")
 	shutil.copy(SNMP_FILE_PATH,MAIN_PATH + 'ucl_minimal_cfg/'+r+'/snmp/')
 
-
-for r in data2:
-	if not os.path.exists(MAIN_PATH + 'ucl_minimal_cfg/'+r+'/snmp/'):
-		os.makedirs(MAIN_PATH + 'ucl_minimal_cfg/'+r+'/snmp/')
-	shutil.copy(SNMP_FILE_PATH,MAIN_PATH + 'ucl_minimal_cfg/'+r+'/snmp/')
