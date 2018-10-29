@@ -49,8 +49,15 @@ def initialize_ip_info_db(db_directory):
                     '--start', 'now', 
                     '--step', str(TIME_INTERVAL), 
                     'DS:received:COUNTER:'+str(TIME_WAIT_VALUE)+':0:U',
+                    'DS:hdrerror:COUNTER:'+str(TIME_WAIT_VALUE)+':0:U',
+                    'DS:addrerror:COUNTER:'+str(TIME_WAIT_VALUE)+':0:U',
+                    'DS:unknowprotos:COUNTER:'+str(TIME_WAIT_VALUE)+':0:U',
+                    'DS:forwarded:COUNTER:'+str(TIME_WAIT_VALUE)+':0:U',
+                    'DS:discarded:COUNTER:'+str(TIME_WAIT_VALUE)+':0:U',
                     'DS:delivered:COUNTER:'+str(TIME_WAIT_VALUE)+':0:U',
-                    'DS:forwarded:COUNTER:'+str(TIME_WAIT_VALUE)+':0:U', 
+                    'DS:outrequests:COUNTER:'+str(TIME_WAIT_VALUE)+':0:U',
+                    'DS:outnoroutes:COUNTER:'+str(TIME_WAIT_VALUE)+':0:U', 
+                    'DS:outdiscards:COUNTER:'+str(TIME_WAIT_VALUE)+':0:U', 
                     'RRA:AVERAGE:0.5:1:100')
 
 """DATA COLLECTION FUNCTIONS"""
