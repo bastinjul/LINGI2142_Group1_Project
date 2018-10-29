@@ -9,9 +9,9 @@
 # Server1 address:		prefix:f600::2
 # Server2 address:		prefix:f740::2
 # admin addresses: 		prefix:f000::/55
-# student addresses:	prefix:f200::/55
+# student addresses:		prefix:f200::/55
 # staff addresses:		prefix:f400::/55
-# service addresses:	prefix:f600::/55
+# service addresses:		prefix:f600::/55
 # guests addresses:		prefix:f800::/55
 # others addresses:		prefix:fa00::/55
 

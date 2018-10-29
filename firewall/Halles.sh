@@ -61,10 +61,10 @@ ip6tables -A FORWARD -p icmpv6 -j ACCEPT
 
 # allow ospf protocol (but not going/from outside)
 # uniquely for border router
-ip6tables -A INPUT -i belnetb -p 89 -j DROP
-ip6tables -A FORWARD -i belnetb -p 89 -j DROP
-ip6tables -A OUTPUT -o belnetb -p 89 -j DROP
-ip6tables -A FORWARD -o belnetb -p 89 -j DROP
+#ip6tables -A INPUT -i belnetb -p 89 -j DROP
+#ip6tables -A FORWARD -i belnetb -p 89 -j DROP
+#ip6tables -A OUTPUT -o belnetb -p 89 -j DROP
+#ip6tables -A FORWARD -o belnetb -p 89 -j DROP
 # for all routers
 ip6tables -A INPUT -p 89 -j ACCEPT
 ip6tables -A OUTPUT -p 89 -j ACCEPT
