@@ -13,14 +13,14 @@ snmpEngine = engine.SnmpEngine()
 config.addTransport(
     snmpEngine,
     udp6.domainName + (1,),
-    udp6.Udp6Transport().openServerMode(('::1', 162))
+    udp6.Udp6Transport().openServerMode(('::', 162))
 )
 
 # UDP over IPv4, second listening interface/port
 config.addTransport(
     snmpEngine,
     udp6.domainName + (2,),
-    udp6.Udp6Transport().openServerMode(('::1', 2162))
+    udp6.Udp6Transport().openServerMode(('::', 2162))
 )
 
 # SNMPv1/2c setup

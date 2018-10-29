@@ -16,4 +16,4 @@ CONFIGDIR="$1"
 BDIR=$(cd $(dirname $0); pwd -P)
 source "${BDIR}/../_node_utils.sh"
 
-node_exec_command "$2" ./test-ip6.py
+node_exec_command "$2" ./"$3" "$2"

@@ -12,8 +12,10 @@ for router, configs in data.items():
     start_config.write("#!/bin/bash \n\n")
         # for bgp
 
-    if router in ["Pytagore", "Halles"]:
-        start_config.write(MAIN_PATH + "firewall/border_router.sh\n\n")
+    if router == "Pythagore":
+        start_config.write(MAIN_PATH + "firewall/Pythagore.sh\n\n")
+    elif router == "Halles":
+        start_config.write(MAIN_PATH + "firewall/Halles.sh\n\n")
     else:
         start_config.write(MAIN_PATH + "firewall/internal_router.sh\n\n")
     start_config.write("puppet apply --verbose --parser future --hiera_config=/etc/puppet/hiera.yaml /etc/puppet/site.pp --modulepath=/puppetmodules \n\n")
