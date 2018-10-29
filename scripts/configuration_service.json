@@ -44,7 +44,9 @@
     "sub_network_prefix": "00000",
     "default_route": "fd00:300:1:f600::4",
     "extra_commands":
-    []
+    [
+      "dhcpd -q -6 -f -cf /etc/dhcp/dhcpd6.conf"
+    ]
   },
   "DHCP2":
   {
@@ -53,7 +55,9 @@
     "sub_network_prefix": "00000",
     "default_route": "fd00:200:1:f740::3",
     "extra_commands":
-    []
+    [
+      "dhcpd -q -6 -f -cf /etc/dhcp/dhcpd6.conf"
+    ]
   }
 }
 

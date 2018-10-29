@@ -13,11 +13,22 @@ $TTL	86400
 			  86400		; Retry
 			2419200		; Expire
 			  86400 )	; Negative Cache TTL
-@	IN	NS	NS1.group1.ingi.
-@	IN	NS	NS2.group1.ingi.
-1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f	IN	PTR	Halles.router.group1.ingi.
-1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.e.f	IN	PTR	Pythagore.router.group1.ingi.
-1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.e.f	IN	PTR	Stevin.router.group1.ingi.
+@	IN	NS	ns1.group1.ingi.
+@	IN	NS	ns2.group1.ingi.
+2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f	IN	PTR	Halles.router.group1.ingi.
+2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.f.f	IN	PTR	Halles.router.group1.ingi.
+4.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.f.f	IN	PTR	Pythagore.router.group1.ingi.
+4.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.4.e.f	IN	PTR	Pythagore.router.group1.ingi.
+4.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.e.f	IN	PTR	Pythagore.router.group1.ingi.
+4.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.6.f	IN	PTR	Pythagore.router.group1.ingi.
+4.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.f.1.6.f	IN	PTR	Pythagore.router.group1.ingi.
+6.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.4.e.f	IN	PTR	Stevin.router.group1.ingi.
+6.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.e.f	IN	PTR	Stevin.router.group1.ingi.
 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.4.e.f	IN	PTR	Carnoy.router.group1.ingi.
-1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.4.f.f	IN	PTR	Michotte.router.group1.ingi.
-1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.f.f	IN	PTR	SH1C.router.group1.ingi.
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.4.e.f	IN	PTR	Carnoy.router.group1.ingi.
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.4.e.f	IN	PTR	Carnoy.router.group1.ingi.
+3.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.4.e.f	IN	PTR	Michotte.router.group1.ingi.
+3.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.4.f.f	IN	PTR	Michotte.router.group1.ingi.
+3.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.4.7.f	IN	PTR	Michotte.router.group1.ingi.
+5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.4.f.f	IN	PTR	SH1C.router.group1.ingi.
+5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f	IN	PTR	SH1C.router.group1.ingi.

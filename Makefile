@@ -5,6 +5,8 @@ create:
 	sudo python3 scripts/config_router.py
 	sudo python3 scripts/config_host.py
 	sudo ./dns/deploy_dns.sh
+	sudo ./dhcp/deploy_dhcp.sh
+	sudo ./dhclient/deploy_dhclient.sh
 	sudo ./create_network.sh ucl_topo
 
 connect:

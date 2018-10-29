@@ -21,6 +21,8 @@ for host, configs in data.items():
     host_config.write("ip link add link " + host_eth + " name " + host_eth + "." + host_id + " type vlan id 0x" + host_id + "\n")
     host_config.write("ip link set dev " + host_eth + "." + host_id + " up \n")
 
+    host_config.write("sleep 20; dhclient -6 -pf /var/run/dhclient_" + host + ".pid -S " + host_eth + "." + host_id)
+
     host_config.close()
 
     host_boot = open(MAIN_PATH + "ucl_minimal_cfg/" + host + "_boot.sh", "w")
