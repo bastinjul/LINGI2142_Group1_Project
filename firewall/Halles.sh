@@ -59,15 +59,30 @@ ip6tables -A INPUT -p icmpv6 -j ACCEPT
 ip6tables -A OUTPUT -p icmpv6 -j ACCEPT
 ip6tables -A FORWARD -p icmpv6 -j ACCEPT
 
-# allow ospf protocol 
+# allow ospf protocol (but not going/from outside)
+# uniquely for border router
+ip6tables -A INPUT -i belnetb -p 89 -j DROP
+ip6tables -A FORWARD -i belnetb -p 89 -j DROP
+ip6tables -A OUTPUT -o belnetb -p 89 -j DROP
+ip6tables -A FORWARD -o belnetb -p 89 -j DROP
+# for all routers
 ip6tables -A INPUT -p 89 -j ACCEPT
 ip6tables -A OUTPUT -p 89 -j ACCEPT
 ip6tables -A FORWARD -p 89 -j ACCEPT
 
 # uniquely for border router:
-# allow bgp protocol port 179 through tcp
+# allow bgp protocol port 179 through tcp but uniquely through the outside interface
 ip6tables -A INPUT -i belnetb -p tcp --dport 179 -j ACCEPT
-ip6tables -A FORWARD -i belnetb -p tcp --dport 179 -j ACCEPT
+ip6tables -A INPUT -i belnetb -p tcp --sport 179 -j ACCEPT
+ip6tables -A OUTPUT -o belnetb -p tcp --dport 179 -j ACCEPT
+
+# uniquely for border router:
+# drop packet with our addresses but coming from outside
+for i in 200 300;
+do
+	ip6tables -A INPUT -i belnetb -s fd00:$i:1::/48 -j DROP
+	ip6tables -A FORWARD -i belnetb -s fd00:$i:1::/48 -j DROP
+done
 
 # DHCP  UDP port number 67 is the destination port of a server, 
 # and UDP port number 68 is used by the client. 
