@@ -11,7 +11,7 @@ def ping_all_routers(data):
             for prefix in data[router][link]: # address for both as
                 address = data[router][link][prefix]
                 p = subprocess.Popen('ping6 -c 1 -w 100 {}'.format(address), stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell = True)
-                
+
                 com[address] = p.communicate()
 
                 res[address] = p.returncode
@@ -25,18 +25,17 @@ def print_ping_result(res):
             print("Ping to the address {} from the {} node:\t\tFAILED".format(add,node))
 
 def write_res(filename,res):
-    with open(filename) as data_file:
-        res_data = json.load(data_file)
-    
+    with open(filename,'r') as res1_file:
+        res_data = json.load(res1_file)
     res_data[node] = res
+    with open(filename,'w') as res2_file:
+        res2_file.write(json.dumps(res_data))
+        
 
-    with open(filename,'w') as data_file:
-        data_file.write(res_data)
-
-with open('ip-addr.json') as data_file:
+with open('ip-addr.json','r') as data_file:
     data = json.load(data_file)
 
-res = ping_all_routers
+res = ping_all_routers(data)
 print_ping_result(res)
-write_res('ping_res.js',res)
+write_res('tests/ping_res.json',res)
 
