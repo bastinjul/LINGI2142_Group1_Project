@@ -55,6 +55,7 @@ function mk_topo {
     mk_LAN Michotte Mi0 Mi1 Mi2 Mi5 # Michotte-lan1
     mk_LAN Stevin St0 St1 St2 St5 # Stevin-lan0
     mk_LAN SH1C SH0 SH1 SH2 SH5 # SH1C-lan0
+    mk_LAN Michotte MONIT2 # Michotte-lan2
 
     echo "@@ Bridging the network"
     # Connect to belneta and belnetb

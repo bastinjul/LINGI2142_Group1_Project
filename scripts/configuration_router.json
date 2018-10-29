@@ -70,7 +70,8 @@
     "extra_ip_command": [],
     "lans":
     {
-      "lan0": "00000"
+      "lan0": "00000",
+      "lan2": "11111"
     },
     "vlan": "lan1"
   },

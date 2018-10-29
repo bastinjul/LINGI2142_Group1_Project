@@ -62,7 +62,7 @@ def ip_info(snmp_engine, user, upd_target, db_directory):
         ObjectType(ObjectIdentity('IP-MIB', 'ipInHdrErrors', 0)), # The number of input IP datagrams discarded due to errors in their IP headers.
         ObjectType(ObjectIdentity('IP-MIB', 'ipInAddrErrors', 0)), # The number of input IP datagrams discarded because the IP address in their IP header's destination field was not a valid address
         ObjectType(ObjectIdentity('IP-MIB', 'ipInUnknownProtos', 0)), # The number of locally-addressed IP datagrams received successfully but discarded because of an unknown or unsupported protocol
-        ObjectType(ObjectIdentity('IP-MIB', 'ipInForwDatagrams', 0)), # The number of input datagrams for which this entity was not their final IP destination and for which this entity attempted to find a route to forward them to that final destination
+        ObjectType(ObjectIdentity('IP-MIB', 'ipForwDatagrams', 0)), # The number of input datagrams for which this entity was not their final IP destination and for which this entity attempted to find a route to forward them to that final destination
         ObjectType(ObjectIdentity('IP-MIB', 'ipInDiscards', 0)), # The number of input IP datagrams for which no problems were encountered to prevent their continued processing, but were discarded
         ObjectType(ObjectIdentity('IP-MIB', 'ipInDelivers', 0)), # The total number of datagrams successfully delivered to IP user-protocols
         ObjectType(ObjectIdentity('IP-MIB', 'ipOutRequests', 0)), # The total number of IP datagrams that local IP user-protocols  supplied to IP in requests for transmission
