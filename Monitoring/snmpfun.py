@@ -58,20 +58,16 @@ def ip_info(snmp_engine, user, upd_target, db_directory):
     """Collects information about the IP packets going through this agent's interfaces"""
     db_location = os.path.join(db_directory, 'ip.rrd')
     data = (
-        ObjectType(ObjectIdentity('IP-MIB', 'ipSystemStatsHCInReceives', 0)), # Total number of received input datagrams (including those received in error)
-        ObjectType(ObjectIdentity('IP-MIB', 'ipSystemStatsHCInOctets', 0)), # The total number of octets received in input IP datagrams, including those received in error.
-        ObjectType(ObjectIdentity('IP-MIB', 'ipSystemStatsInHdrErrors', 0)), # The number of input IP datagrams discarded due to errors in their IP headers.
-        ObjectType(ObjectIdentity('IP-MIB', 'ipSystemStatsInNoRoutes', 0)), # The number of input IP datagrams discarded because no route could be found to transmit them to their destination
-        ObjectType(ObjectIdentity('IP-MIB', 'ipSystemStatsInAddrErrors', 0)), # The number of input IP datagrams discarded because the IP address in their IP header's destination field was not a valid address
-        ObjectType(ObjectIdentity('IP-MIB', 'ipSystemStatsInUnknownProtos', 0)), # The number of locally-addressed IP datagrams received successfully but discarded because of an unknown or unsupported protocol
-        ObjectType(ObjectIdentity('IP-MIB', 'ipSystemStatsHCInForwDatagrams', 0)), # The number of input datagrams for which this entity was not their final IP destination and for which this entity attempted to find a route to forward them to that final destination
-        ObjectType(ObjectIdentity('IP-MIB', 'ipSystemStatsInDiscards', 0)), # The number of input IP datagrams for which no problems were encountered to prevent their continued processing, but were discarded
-        ObjectType(ObjectIdentity('IP-MIB', 'ipSystemStatsHCInDelivers', 0)), # The total number of datagrams successfully delivered to IP user-protocols
-        ObjectType(ObjectIdentity('IP-MIB', 'ipSystemStatsHCOutRequests', 0)), # The total number of IP datagrams that local IP user-protocols  supplied to IP in requests for transmission
-        ObjectType(ObjectIdentity('IP-MIB', 'ipSystemStatsOutNoRoutes', 0)), # The number of locally generated IP datagrams discarded because no route could be found to transmit them to their destination
-        ObjectType(ObjectIdentity('IP-MIB', 'ipSystemStatsHCOutForwDatagrams', 0)), # The number of datagrams for which this entity was not their final IP destination and for which it was successful in finding a path to their final destination
-        ObjectType(ObjectIdentity('IP-MIB', 'ipSystemStatsOutDiscards', 0)), # The number of output IP datagrams for which no problem was encountered to prevent their transmission to their destination, but were discarded
-        ObjectType(ObjectIdentity('IP-MIB', 'ipSystemStatsHCOutOctets', 0)) # The total number of octets in IP datagrams delivered to the lower layers for transmission
+        ObjectType(ObjectIdentity('IP-MIB', 'ipInReceives', 0)), # Total number of received input datagrams (including those received in error)
+        ObjectType(ObjectIdentity('IP-MIB', 'ipInHdrErrors', 0)), # The number of input IP datagrams discarded due to errors in their IP headers.
+        ObjectType(ObjectIdentity('IP-MIB', 'ipInAddrErrors', 0)), # The number of input IP datagrams discarded because the IP address in their IP header's destination field was not a valid address
+        ObjectType(ObjectIdentity('IP-MIB', 'ipInUnknownProtos', 0)), # The number of locally-addressed IP datagrams received successfully but discarded because of an unknown or unsupported protocol
+        ObjectType(ObjectIdentity('IP-MIB', 'ipInForwDatagrams', 0)), # The number of input datagrams for which this entity was not their final IP destination and for which this entity attempted to find a route to forward them to that final destination
+        ObjectType(ObjectIdentity('IP-MIB', 'ipInDiscards', 0)), # The number of input IP datagrams for which no problems were encountered to prevent their continued processing, but were discarded
+        ObjectType(ObjectIdentity('IP-MIB', 'ipInDelivers', 0)), # The total number of datagrams successfully delivered to IP user-protocols
+        ObjectType(ObjectIdentity('IP-MIB', 'ipOutRequests', 0)), # The total number of IP datagrams that local IP user-protocols  supplied to IP in requests for transmission
+        ObjectType(ObjectIdentity('IP-MIB', 'ipOutNoRoutes', 0)), # The number of locally generated IP datagrams discarded because no route could be found to transmit them to their destination
+        ObjectType(ObjectIdentity('IP-MIB', 'ipOutDiscards', 0)) # The number of output IP datagrams for which no problem was encountered to prevent their transmission to their destination, but were discarded
     )
     update_rrd(snmp_engine, user, upd_target, data, db_location)
 
