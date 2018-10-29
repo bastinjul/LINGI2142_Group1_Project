@@ -43,6 +43,7 @@ ip6tables -A FORWARD -m conntrack --ctstate ESTABLISHED -j ACCEPT
 
 # allow the local traffic (so on the loopback interface) (can't use -i with output)
 ip6tables -A INPUT -i lo -j ACCEPT
+ip6tables -A FORWARD -i lo -j ACCEPT
 
 # Drop INVALID packets
 ip6tables -A INPUT -m state --state INVALID -j DROP 

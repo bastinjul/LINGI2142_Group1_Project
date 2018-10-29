@@ -45,17 +45,14 @@ ip6tables -A FORWARD -m conntrack --ctstate ESTABLISHED -j ACCEPT
 
 # allow the local traffic (so on the loopback interface) (can't use -i with OUTPUT)
 ip6tables -A INPUT -i lo -j ACCEPT
+ip6tables -A FORWARD -i lo -j ACCEPT
 
 # Drop INVALID packets
 ip6tables -A INPUT -m state --state INVALID -j DROP 
 ip6tables -A OUTPUT -m state --state INVALID -j DROP
 ip6tables -A FORWARD -m state --state INVALID -j DROP
 
-# Echo Request (limitation to avoid flooding) type=128/code=0
-ip6tables -A INPUT -p icmpv6 --icmpv6-type 128/0 -j ACCEPT --match limit --limit 10/second
-ip6tables -A INPUT -p icmpv6 --icmpv6-type 128/0 -j DROP
-
-# ICMPv6 traffic
+# ICMPv6 traffic (no limitation for inside traffic)
 ip6tables -A INPUT -p icmpv6 -j ACCEPT
 ip6tables -A OUTPUT -p icmpv6 -j ACCEPT
 ip6tables -A FORWARD -p icmpv6 -j ACCEPT
