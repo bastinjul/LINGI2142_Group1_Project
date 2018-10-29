@@ -13,7 +13,7 @@ for router, configs in data.items():
         # for bgp
 
     if router == "Pythagore":
-	start_config.write(MAIN_PATH + "firewall/Pythagore.sh\n\n")
+        start_config.write(MAIN_PATH + "firewall/Pythagore.sh\n\n")
     elif router == "Halles":
         start_config.write(MAIN_PATH + "firewall/Halles.sh\n\n")
     else:

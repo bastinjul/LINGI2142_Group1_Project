@@ -66,9 +66,8 @@ ip6tables -A FORWARD -p 89 -j ACCEPT
 
 # uniquely for border router:
 # allow bgp protocol port 179 through tcp
-ip6tables -A INPUT -p tcp --dport 179 -j ACCEPT
-ip6tables -A OUTPUT -p tcp --dport 179 -j ACCEPT
-ip6tables -A FORWARD -p tcp --dport 179 -j ACCEPT
+ip6tables -A INPUT -p tcp -i belneta --dport 179 -j ACCEPT
+ip6tables -A FORWARD -p tcp -i belneta --dport 179 -j ACCEPT
 
 # DHCP  UDP port number 67 is the destination port of a server, 
 # and UDP port number 68 is used by the client. 
