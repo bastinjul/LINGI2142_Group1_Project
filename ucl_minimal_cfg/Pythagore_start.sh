@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-/home/vagrant/LINGI2142_Group1_Project/firewall/internal_router.sh
+/home/vagrant/LINGI2142_Group1_Project/firewall/border_router.sh
 
 puppet apply --verbose --parser future --hiera_config=/etc/puppet/hiera.yaml /etc/puppet/site.pp --modulepath=/puppetmodules 
 
@@ -17,12 +17,12 @@ ip link set dev Pythagore-eth1 up
 ip address add dev Pythagore-eth1 fd00:200:1:fe41::4/64 
 ip address add dev Pythagore-eth1 fd00:300:1:fe41::4/64 
 
-ip link set dev Pythagore-lan0 up 
-ip address add dev Pythagore-lan0 fd00:200:1:f600::4/64 
-ip address add dev Pythagore-lan0 fd00:300:1:f600::4/64 
 ip link set dev Pythagore-lan1 up 
 ip address add dev Pythagore-lan1 fd00:200:1:f61f::4/64 
 ip address add dev Pythagore-lan1 fd00:300:1:f61f::4/64 
+ip link set dev Pythagore-lan0 up 
+ip address add dev Pythagore-lan0 fd00:200:1:f600::4/64 
+ip address add dev Pythagore-lan0 fd00:300:1:f600::4/64 
 
 ip link set dev Pythagore-lan2 up
 ip link add link Pythagore-lan2 name Pyth-lan2.000 type vlan id 0x000

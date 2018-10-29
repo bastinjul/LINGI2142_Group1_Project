@@ -34,7 +34,7 @@
     "location_bits": "1010",
     "end_address": "::100",
     "sub_network_prefix": "11111",
-    "default_route": "fd00:300:1:f75f::3",
+    "default_route": "fd00:200:1:f75f::3",
     "extra_commands": []
   },
   "DHCP1":

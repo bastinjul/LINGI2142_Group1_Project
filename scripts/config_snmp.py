@@ -22,4 +22,4 @@ for r in data:
 		os.makedirs(MAIN_PATH + 'ucl_minimal_cfg/'+r+'/snmp/')
 	print("INFO\tCopying SNMP Configuration file")
 	shutil.copy(SNMP_FILE_PATH,MAIN_PATH + 'ucl_minimal_cfg/'+r+'/snmp/')
-	os.system('sudo chown vagrant:vagrant {}/ucl_minimal_cfg/{}/{}'.format(MAIN_PATH,r,SNMP_CONF))
+	os.system('sudo chown vagrant:vagrant {}ucl_minimal_cfg/{}/{}'.format(MAIN_PATH,r,SNMP_CONF))

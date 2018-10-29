@@ -46,8 +46,8 @@ function mk_topo {
 
     echo "@@ Adding LANs"
     # You can add your LANs here
-    mk_LAN Pythagore NS1 # Pythagore-lan0
-    mk_LAN Michotte NS2 # Michotte-lan0
+    mk_LAN Pythagore NS1 DHCP1 # Pythagore-lan0
+    mk_LAN Michotte NS2 DHCP2 # Michotte-lan0
     mk_LAN Pythagore MONITORING # Pythagore-lan1
     mk_LAN Carnoy Ca0 Ca1 Ca2 Ca5 # Carnoy-lan0
     mk_LAN Halles Ha0 Ha1 Ha2 Ha5 # Halles-lan0
