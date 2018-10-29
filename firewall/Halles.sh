@@ -51,8 +51,8 @@ ip6tables -A OUTPUT -m state --state INVALID -j DROP
 ip6tables -A FORWARD -m state --state INVALID -j DROP
 
 # Echo Request (limitation to avoid flooding) type=128/code=0
-ip6tables -A INPUT -p icmpv6 --icmpv6-type 128/0 -j ACCEPT --match limit --limit 10/second
-ip6tables -A INPUT -p icmpv6 --icmpv6-type 128/0 -j DROP
+ip6tables -A INPUT -i belnetb -p icmpv6 --icmpv6-type 128/0 -j ACCEPT --match limit --limit 10/second
+ip6tables -A INPUT -i belnetb -p icmpv6 --icmpv6-type 128/0 -j DROP
 
 # ICMPv6 traffic
 ip6tables -A INPUT -p icmpv6 -j ACCEPT
