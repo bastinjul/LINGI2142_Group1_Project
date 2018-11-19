@@ -26,6 +26,7 @@ options {
 	//========================================================================
 
 	forwarders { fd00::d; 2001:4860:4860::8888; };
+	//forwarders { fd00::d; };
 
 	auth-nxdomain no;    # conform to RFC1035
 	listen-on-v6 { any; };
