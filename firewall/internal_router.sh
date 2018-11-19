@@ -9,9 +9,9 @@
 # Server1 address:		prefix:f600::2
 # Server2 address:		prefix:f740::2
 # admin addresses: 		prefix:f000::/55
-# student addresses:		prefix:f200::/55
+# student addresses:	prefix:f200::/55
 # staff addresses:		prefix:f400::/55
-# service addresses:		prefix:f600::/55
+# service addresses:	prefix:f600::/55
 # guests addresses:		prefix:f800::/55
 # others addresses:		prefix:fa00::/55
 
@@ -29,14 +29,6 @@ ip6tables -t FORWARD -F
 ip6tables -P INPUT DROP
 ip6tables -P OUTPUT DROP
 ip6tables -P FORWARD DROP
-
-# authorize all the traffic coming from or to an admin user:
-for i in 200 300;
-do
-	ip6tables -A INPUT -s fd00:$i:1:f000::/55 -j ACCEPT
-	ip6tables -A OUTPUT -s fd00:$i:1:f000::/55 -j ACCEPT
-	ip6tables -A FORWARD -s fd00:$i:1:f000::/55 -j ACCEPT
-done
 	
 # authorize the traffic of an already open connection (ESTABLISHED)
 ip6tables -A INPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
@@ -45,12 +37,21 @@ ip6tables -A FORWARD -m conntrack --ctstate ESTABLISHED -j ACCEPT
 
 # allow the local traffic (so on the loopback interface) (can't use -i with OUTPUT)
 ip6tables -A INPUT -i lo -j ACCEPT
-ip6tables -A FORWARD -i lo -j ACCEPT
+ip6tables -A OUTPUT -i lo -j ACCEPT
 
 # Drop INVALID packets
 ip6tables -A INPUT -m state --state INVALID -j DROP 
 ip6tables -A OUTPUT -m state --state INVALID -j DROP
 ip6tables -A FORWARD -m state --state INVALID -j DROP
+
+# authorize all the traffic coming from or to an admin user:
+for i in 200 300;
+do
+	ip6tables -A INPUT -s fd00:$i:1:f000::/55 -j ACCEPT
+	ip6tables -A OUTPUT -d fd00:$i:1:f000::/55 -j ACCEPT
+	ip6tables -A FORWARD -s fd00:$i:1:f000::/55 -j ACCEPT
+	ip6tables -A FORWARD -d fd00:$i:1:f000::/55 -j ACCEPT
+done
 
 # ICMPv6 traffic (no limitation for inside traffic)
 ip6tables -A INPUT -p icmpv6 -j ACCEPT
@@ -62,34 +63,23 @@ ip6tables -A INPUT -p 89 -j ACCEPT
 ip6tables -A OUTPUT -p 89 -j ACCEPT
 ip6tables -A FORWARD -p 89 -j ACCEPT
 
-# DHCP  UDP port number 67 is the destination port of a server, 
-# and UDP port number 68 is used by the client. 
-for i in 67 68;
-do
-	ip6tables -A INPUT -p udp --dport $i -j ACCEPT
-	ip6tables -A OUTPUT -p udp --dport $i -j ACCEPT
-	ip6tables -A FORWARD -p udp --dport $i -j ACCEPT
-done
-
 for i in 200 300;
 do
-	for j in "f600" "f740";
+	for j in "udp" "tcp";
 	do
-		address=fd00:$i:1:$j::1
-		# Allowing Traffic DNS to the two dataserver
-		ip6tables -A INPUT -s $address -p udp --dport 53 -j ACCEPT
-		ip6tables -A OUTPUT -d $address -p udp --dport 53 -j ACCEPT
-		ip6tables -A FORWARD -d $address -p udp --dport 53 -j ACCEPT
+		for k in "f600" "f740";
+		do
+			address=fd00:$i:1:$k::1
+			# Allowing Traffic DNS to the two dataserver
+			ip6tables -A FORWARD -d $address -p $j --dport 53 -j ACCEPT
+		done
+		address=fd00:$i:1::/64
+		# We drop the DNS traffic in destination to another address in the network
+		ip6tables -A FORWARD -d address -p $j --dport 53 -j DROP
+		# But the DNS traffic for outside of the network is accepted
+		ip6tables -A FORWARD -p $j --dport 53 -j ACCEPT
 	done
 done
-# We drop the DNS traffic to another address in the network
-ip6tables -A INPUT -p udp --dport 53 -j DROP
-ip6tables -A INPUT -p tcp --dport 53 -j DROP
-# But the DNS traffic for outside of the network is accepted
-ip6tables -A OUTPUT -p udp --dport 53 -j ACCEPT
-ip6tables -A OUTPUT -p tcp --dport 53 -j ACCEPT
-ip6tables -A FORWARD -p udp --dport 53 -j ACCEPT
-ip6tables -A FORWARD -p tcp --dport 53 -j ACCEPT
 
 for i in 200 300;
 do
@@ -99,25 +89,16 @@ do
 	do
 		address=fd00:$i:1:$j::/55
 		# http (port 80) and https (port 443)
-		for k in 80 443;
-		do
-			ip6tables -A FORWARD -s $address -p tcp --dport $k -j ACCEPT
-		done		
-
+		ip6tables -A FORWARD -s $address -p tcp -m multiport --dports 80,443 -j ACCEPT
+		
 		# smtp (port 25)
 		ip6tables -A FORWARD -s $address -p tcp --dport 25 -j ACCEPT
 		
 		# pop (port 110 or 995 (with ssl))
-		for k in 110 995;
-		do
-			ip6tables -A FORWARD -s $address -p tcp --dport $k -j ACCEPT
-		done
-		
+		ip6tables -A FORWARD -s $address -p tcp -m multiport --dports 110,995 -j ACCEPT
+				
 		# imap (port 143 or 993 (for imaps but discouraged by RFC 2595))
-		for k in 143 993;
-		do
-			ip6tables -A FORWARD -s $address -p tcp --dport $k -j ACCEPT
-		done
+		ip6tables -A FORWARD -s $address -p tcp -m multiport --dports 143,993 -j ACCEPT
 	done
 	
 	# student + staff
@@ -130,17 +111,10 @@ do
 done
 
 # snmp 
-for i in 161 162;
-do
-	ip6tables -A INPUT -p udp --dport $i -j ACCEPT
-	ip6tables -A OUTPUT -p udp --dport $i -j ACCEPT
-	ip6tables -A FORWARD -p udp --dport $i -j ACCEPT
-	ip6tables -A INPUT -p udp --sport $i -j ACCEPT
-	ip6tables -A OUTPUT -p udp --sport $i -j ACCEPT
-	ip6tables -A FORWARD -p udp --sport $i -j ACCEPT
-done
+ip6tables -A INPUT -p udp -m multiport --dports 161,162 -j ACCEPT
+ip6tables -A FORWARD -p udp -m multiport --dports 161,162 -j ACCEPT
+ip6tables -A INPUT -p udp -m multiport --sports 161,162 -j ACCEPT
+ip6tables -A FORWARD -p udp -m multiport --sports 161,162 -j ACCEPT
 
-# dhcpv6 port 546 from client and 547 from server the client initialise the connection
-ip6tables -A INPUT -p udp --sport 546 --dport 547 -j ACCEPT
-ip6tables -A OUTPUT -p udp --sport 546 --dport 547 -j ACCEPT 
+# dhcpv6 port 546 from client and 547 from server the client initialize the connection
 ip6tables -A FORWARD -p udp --sport 546 --dport 547 -j ACCEPT
