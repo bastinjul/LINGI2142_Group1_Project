@@ -82,5 +82,6 @@ def ip_info(snmp_engine, user, upd_target, db_directory):
 
 
 def pkt_info(snmp_engine, user, upd_target, db_directory):
+    # TODO (useless because router can not access to pkt info (udp,tcp))
     pass
 

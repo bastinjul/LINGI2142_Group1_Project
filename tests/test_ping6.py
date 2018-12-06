@@ -25,6 +25,9 @@ def print_ping_result(res):
             print("Ping to the address {} from the {} node:\t\tFAILED".format(add,node))
 
 def write_res(filename,res,node):
+    """
+        Read the res json and write the result
+    """
     with open(filename,'r') as res1_file:
         res_data = json.load(res1_file)
     res_data[node] = res
