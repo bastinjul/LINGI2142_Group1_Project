@@ -103,8 +103,8 @@ do
 	for j in "udp" "tcp";
 	do
 		# Allowing Traffic DNS to the two dataserver
-		ip6tables -A FORWARD -d fd00:f600:1:$k::1 -p $j --dport 53 -j ACCEPT
-		ip6tables -A FORWARD -d fd00:f740:1:$k::1 -p $j --dport 53 -j ACCEPT
+		ip6tables -A FORWARD -d fd00:f600:1:f600::1 -p $j --dport 53 -j ACCEPT
+		ip6tables -A FORWARD -d fd00:f740:1:f740::1 -p $j --dport 53 -j ACCEPT
 		
 		# We drop the DNS traffic in destination to another address in the network
 		ip6tables -A FORWARD -d fd00:$i:1::/64 -p $j --dport 53 -j DROP
@@ -156,5 +156,5 @@ ip6tables -A OUTPUT -p udp -o belnetb --sport 546 --dport 547 -j DROP
 ip6tables -A FORWARD -p udp -o belnetb --sport 546 --dport 547 -j DROP
 
 # Allowing Traffic DHCPv6 to the two DHCPservers
-ip6tables -A FORWARD -d fd00:f600:1:$k::2 -p udp --sport 546 --dport 547 -j ACCEPT
-ip6tables -A FORWARD -d fd00:f740:1:$k::2 -p udp --sport 546 --dport 547 -j ACCEPT
+ip6tables -A FORWARD -d fd00:f600:1:f600::2 -p udp --sport 546 --dport 547 -j ACCEPT
+ip6tables -A FORWARD -d fd00:f740:1:f740::2 -p udp --sport 546 --dport 547 -j ACCEPT
