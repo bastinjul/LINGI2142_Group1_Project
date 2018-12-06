@@ -2,11 +2,11 @@
 import os, json, time
 
 WA = '!'*3
-def check(data,pattern):
+def check(data,pattern,*discard):
     success = True
     for r in data:
         for d in data[r]:
-            if data[r][d] != 0:
+            if r not in discard and d not in discard and data[r][d] != 0:
                 success = False
                 print('{0} {1} TEST FAILED FOR {2} ROUTER AND {3} ADDRESS {0}'.format(WA,pattern,r,d))
     if success:

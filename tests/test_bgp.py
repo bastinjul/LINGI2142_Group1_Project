@@ -22,5 +22,4 @@ with open('as-addr.json','r') as data_file:
     data = json.load(data_file)
 
 res = ping_all_as(data)
-print_ping_result(res)
 write_res('tests/bgp_res.json',res,node)

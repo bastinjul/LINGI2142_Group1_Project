@@ -4,7 +4,7 @@ from print_res import check
 
 print("!!!!! STANDARD TEST FOR PING AND DIG !!!!!")
 
-os.system('./test_all')
+os.system('./test_all.py')
 
 with open('ping_res.json') as ping_file:
         ping_data = json.load(ping_file)

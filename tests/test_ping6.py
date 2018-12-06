@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import os, subprocess, re, json, sys
-from test_all import WORKING_NODE
+from test_all import WORKING_NODE, DISCARDED
 from print_res import write_res
 
 def ping_all_routers(data):
