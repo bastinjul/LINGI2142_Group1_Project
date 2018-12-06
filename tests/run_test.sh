@@ -1,4 +1,6 @@
 #!/bin/bash
+
+# this is not a test to be ran! This is a tool to lauch test on routers!
  
 # Open a shell to one of the routers
 

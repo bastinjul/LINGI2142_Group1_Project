@@ -3,6 +3,7 @@
 from pysnmp.entity import engine, config
 from pysnmp.carrier.asyncore.dgram import udp6
 from pysnmp.entity.rfc3413 import ntfrcv
+from pysnmp.proto.api import v2c
 
 # Create SNMP engine with autogenernated engineID and pre-bound
 # to socket transport dispatcher
@@ -10,14 +11,14 @@ snmpEngine = engine.SnmpEngine()
 
 # Transport setup
 
-# UDP over IPv4, first listening interface/port
+# UDP over IPv6, first listening interface/port
 config.addTransport(
     snmpEngine,
     udp6.domainName + (1,),
     udp6.Udp6Transport().openServerMode(('::', 162))
 )
 
-# UDP over IPv4, second listening interface/port
+# UDP over IPv6, second listening interface/port
 config.addTransport(
     snmpEngine,
     udp6.domainName + (2,),
@@ -28,6 +29,12 @@ config.addTransport(
 
 # SecurityName <-> CommunityName mapping
 config.addV1System(snmpEngine, 'my-area', 'public')
+
+config.addV3User(
+    snmpEngine, 'usr-sha-aes128',
+    config.usmHMACSHAAuthProtocol, 'authkey1',
+    config.usmAesCfb128Protocol, 'privkey1'
+)
 
 
 # Callback function for receiving notifications
