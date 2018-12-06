@@ -4,6 +4,7 @@ from test_all import WORKING_NODE
 from print_res import write_res
 
 def ping_all_routers(data):
+    print('PING')
     os.chdir('../')
     res = {}
     com = {}

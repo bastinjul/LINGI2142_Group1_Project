@@ -4,6 +4,7 @@ from test_all import WORKING_NODE
 from print_res import write_res
 
 def ping_all_as(data):
+    print('BGP: {}'.format(WORKING_NODE))
     os.chdir('../')
     res = {}
     com = {}
@@ -22,5 +23,4 @@ with open('as-addr.json','r') as data_file:
     data = json.load(data_file)
 
 res = ping_all_as(data)
-print_ping_result(res)
 write_res('tests/bgp_res.json',res,node)

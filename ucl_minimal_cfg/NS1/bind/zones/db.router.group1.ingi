@@ -11,17 +11,17 @@ $TTL	86400
 			2419200		; Expire
 			  86400 )	; Negative Cache TTL
 ;
-@	IN	NS	NS1.group1.ingi.
-@	IN	NS	NS2.group1.ingi.
-Halles	IN	AAAA	fd00:200:1:ff00::2
-Halles	IN	AAAA	fd00:300:1:ff00::2
-Pythagore	IN	AAAA	fd00:200:1:fe00::4
-Pythagore	IN	AAAA	fd00:300:1:fe00::4
-Stevin	IN	AAAA	fd00:200:1:fe00::6
-Stevin	IN	AAAA	fd00:300:1:fe00::6
-Carnoy	IN	AAAA	fd00:200:1:fe40::1
-Carnoy	IN	AAAA	fd00:300:1:fe40::1
-Michotte	IN	AAAA	fd00:200:1:fe40::3
-Michotte	IN	AAAA	fd00:300:1:fe40::3
+@	IN	NS	ns1.group1.ingi.
+@	IN	NS	ns2.group1.ingi.
+HALL	IN	AAAA	fd00:200:1:ff00::2
+HALL	IN	AAAA	fd00:300:1:ff00::2
+PYTH	IN	AAAA	fd00:200:1:fe00::4
+PYTH	IN	AAAA	fd00:300:1:fe00::4
+STEV	IN	AAAA	fd00:200:1:fe00::6
+STEV	IN	AAAA	fd00:300:1:fe00::6
+CARN	IN	AAAA	fd00:200:1:fe40::1
+CARN	IN	AAAA	fd00:300:1:fe40::1
+MICH	IN	AAAA	fd00:200:1:fe40::3
+MICH	IN	AAAA	fd00:300:1:fe40::3
 SH1C	IN	AAAA	fd00:200:1:ff00::5
 SH1C	IN	AAAA	fd00:300:1:ff00::5
