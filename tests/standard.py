@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os
+import os, json
 from print_res import check
 
 print("!!!!! STANDARD TEST FOR PING AND DIG !!!!!")
