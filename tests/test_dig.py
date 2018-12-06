@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os, subprocess, re, json, sys
 from test_all import WORKING_NODE
+from print_res import write_res
 
 def dig_all_servers(data):
     os.chdir('../')
@@ -15,13 +16,6 @@ def dig_all_servers(data):
 
             res[address] = p.returncode
     return res
-
-def write_res(filename,res,node):
-    with open(filename,'r') as res1_file:
-        res_data = json.load(res1_file)
-    res_data[node] = res
-    with open(filename,'w') as res2_file:
-        res2_file.write(json.dumps(res_data))
 
 node = WORKING_NODE
 

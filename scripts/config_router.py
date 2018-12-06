@@ -28,6 +28,14 @@ for router, configs in data.items():
 
     start_config.write("\n")
 
+    # loopback address
+    pref_end_bits = "1111111" + configs["location_bits"] + "01111"
+    pref_end = '%04x' % int(pref_end_bits, 2)
+    start_config.write("ip address add " + PREFIXES[0] + pref_end + "::" + configs["router_id"] + " dev lo")
+    start_config.write("\n")
+
+    start_config.write("\n")
+
     # for links between routers
 
     for eth, bits in configs["eths"].items():

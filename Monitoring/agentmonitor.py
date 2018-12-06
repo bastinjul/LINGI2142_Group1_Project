@@ -4,7 +4,7 @@ import time
 from pysnmp.hlapi import *
 from pysnmp.smi.view import MibViewController
 # Data types used by PySNMP
-from pyasn1.type.univ import * 
+from pyasn1.type.univ import *
 # Multithreading
 import threading
 # SNMP getter functions
@@ -36,7 +36,7 @@ class Agent_monitor(threading.Thread):
         user = UsmUserData(**self.snmpv3_user)
 
         # Instantiate transport protocol (UDP over IPv6)
-        upd_target = Udp6TransportTarget((self.ip, SNMP_PORT)) 
+        upd_target = Udp6TransportTarget((self.ip, SNMP_PORT))
 
         while not self.stop_event.is_set():
             for data_collect_fun in self.data_collect_funs:
@@ -49,8 +49,8 @@ class Agent_monitor(threading.Thread):
 # Infos
 threads = []
 stop_event = threading.Event()
-snmpv3_user = {   
-                'userName': 'gr1', 
+snmpv3_user = {
+                'userName': 'gr1',
                 'authProtocol': usmHMACSHAAuthProtocol, # SHA (128bit)
                 'authKey': 'password',
                 'privKey': 'secret_key',
@@ -78,5 +78,3 @@ if input('Type "stop" to terminate all threads\n') == 'stop':
     stop_event.set()
     for th in threads:
         th.join()
-
-

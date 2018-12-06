@@ -20,7 +20,7 @@ def graph_ip_info(db_directory):
                     'DEF:received='+db_location+':received:AVERAGE',
                     'DEF:hdrerror='+db_location+':hdrerror:AVERAGE',
                     'DEF:addrerror='+db_location+':addrerror:AVERAGE',
-                    'DEF:unknownprotos='+db_location+':unknownprotos:AVERAGE',
+                    'DEF:unknownprotos='+db_location+':unknowprotos:AVERAGE',
                     'DEF:forwarded='+db_location+':forwarded:AVERAGE',
                     'DEF:discarded='+db_location+':discarded:AVERAGE',
                     'DEF:delivered='+db_location+':delivered:AVERAGE',
@@ -33,8 +33,8 @@ def graph_ip_info(db_directory):
                     'LINE1:errors#0000FF:Errors',
                     'LINE1:delivered#FF0000:Delivered',
                     'LINE1:forwarded#070070:Forwarded',
-                    'LINE1:outrequests#0700700:Request for out datagramms'
-                    'LINE1:discarded#0000FF:Discarded',
+                    'LINE1:outrequests#070070:Request for out datagramms',
+                    'LINE1:discards#0000FF:Discarded'
                     )
 
 with open('agent_list.conf', 'r') as f:

@@ -11,10 +11,15 @@ protocol device {
 	scan time 10;
 }
 
+protocol static loopback {
+	route <%= @ospfv3["loopback"] %>/128 reject;
+}
+
 filter export_ospf{
         if net ~ fd00:200:1::/48 then accept;
         if net ~ fd00:300:1::/48 then accept;
         if net = ::/0 then accept;
+	if proto = "loopback" then accept;
 else reject;
 }
 
@@ -80,8 +85,25 @@ filter import_default{
 protocol bgp provider {
 	local as <%= @bgp["local_as"] %>;
 	neighbor <%= @bgp["neighbor_ip"] %> as <%= @bgp["neighbor_as"]%>;
-	#source address <%= @bgp["source_ip"] %>;
 	export where proto = "static_bgp";
 	import filter import_default;
+}
+
+filter import_peering{
+	if (net.ip = fd00:200::<%= @group_number %>) then {
+		accept;
+	} 
+	if (net.ip = fd00:300::<%= @group_number %>) then {
+		accept;
+	}
+	reject;
+}
+
+protocol bgp peering {
+        local as <%= @bgp["local_as"] %>;
+        neighbor fd00:200::<%= @group_number %> as <%= @group_number %>;
+        export where proto = "static_bgp";
+        import filter import_peering;
+
 }
 <%- end -%>

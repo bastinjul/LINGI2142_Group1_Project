@@ -10,5 +10,6 @@ bird6::ospfv3:
     - Michotte-lan0
     - Michotte-lan1
     - Michotte-lan2
+  loopback: fd00:200:1:ff4f::3
 bird6::bgp:
   isBorderRouter: false

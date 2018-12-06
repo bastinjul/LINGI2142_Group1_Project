@@ -8,5 +8,6 @@ bird6::ospfv3:
     - Stevin-eth1
   stub_itfs:
     - Stevin-lan0
+  loopback: fd00:200:1:fe8f::6
 bird6::bgp:
   isBorderRouter: false

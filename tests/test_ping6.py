@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os, subprocess, re, json, sys
 from test_all import WORKING_NODE
+from print_res import write_res
 
 def ping_all_routers(data):
     os.chdir('../')
@@ -23,16 +24,6 @@ def print_ping_result(res):
             print("Ping to the address {} from the {} node:\t\tSUCCESS".format(add,node))
         else:
             print("Ping to the address {} from the {} node:\t\tFAILED".format(add,node))
-
-def write_res(filename,res,node):
-    """
-        Read the res json and write the result
-    """
-    with open(filename,'r') as res1_file:
-        res_data = json.load(res1_file)
-    res_data[node] = res
-    with open(filename,'w') as res2_file:
-        res2_file.write(json.dumps(res_data))
 
 node = WORKING_NODE
 
