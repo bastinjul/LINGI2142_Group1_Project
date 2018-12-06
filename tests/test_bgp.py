@@ -4,6 +4,7 @@ from test_all import WORKING_NODE
 from print_res import write_res
 
 def ping_all_as(data):
+    print('BGP: {}'.format(WORKING_NODE))
     os.chdir('../')
     res = {}
     com = {}
