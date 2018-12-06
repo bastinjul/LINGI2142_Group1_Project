@@ -3,6 +3,7 @@ import os, subprocess, re, json, sys, time
 
 DIG = 'test_dig.py'
 PING = 'test_ping6.py'
+BGP = 'test_bgp.py'
 WORKING_NODE = 'Nope'
 RUN = './run_test.sh'
 CONFIG = '../ucl_minimal_cfg/'
@@ -10,21 +11,14 @@ CONFIG = '../ucl_minimal_cfg/'
 with open('ip-addr.json') as data_file:
     data = json.load(data_file)
 
-def test_ping(data):
+def test_proto(data,proto):
     global WORKING_NODE
     for r in data:
         WORKING_NODE = r
-        p = subprocess.Popen('sudo {} {} {} {}'.format(RUN, CONFIG, r, PING), stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell = True)
+        p = subprocess.Popen('sudo {} {} {} {}'.format(RUN, CONFIG, r, proto), stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell = True)
         print(p.communicate)
         time.sleep(0.5) # in order to leave time for the test to complete
 
-def test_dig(data):
-    global WORKING_NODE
-    for r in data:
-        WORKING_NODE = r
-        p = subprocess.Popen('sudo {} {} {} {}'.format(RUN, CONFIG, r, DIG), stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell = True)
-        print(p.communicate)
-        time.sleep(0.5)
-
-test_ping(data)
-test_dig(data)
+test_proto(data,PING)
+test_proto(data,DIG)
+test_proto(data,BGP)
