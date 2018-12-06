@@ -29,7 +29,7 @@ ip6tables -t FORWARD -F
 ip6tables -P INPUT DROP
 ip6tables -P OUTPUT DROP
 ip6tables -P FORWARD DROP
-	
+
 # authorize the traffic of an already open connection (ESTABLISHED)
 ip6tables -A INPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
 ip6tables -A OUTPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
@@ -37,10 +37,10 @@ ip6tables -A FORWARD -m conntrack --ctstate ESTABLISHED -j ACCEPT
 
 # allow the local traffic (so on the loopback interface) (can't use -i with OUTPUT)
 ip6tables -A INPUT -i lo -j ACCEPT
-ip6tables -A OUTPUT -i lo -j ACCEPT
+ip6tables -A OUTPUT -o lo -j ACCEPT
 
 # Drop INVALID packets
-ip6tables -A INPUT -m state --state INVALID -j DROP 
+ip6tables -A INPUT -m state --state INVALID -j DROP
 ip6tables -A OUTPUT -m state --state INVALID -j DROP
 ip6tables -A FORWARD -m state --state INVALID -j DROP
 
@@ -58,7 +58,7 @@ ip6tables -A INPUT -p icmpv6 -j ACCEPT
 ip6tables -A OUTPUT -p icmpv6 -j ACCEPT
 ip6tables -A FORWARD -p icmpv6 -j ACCEPT
 
-# allow ospf protocol 
+# allow ospf protocol
 ip6tables -A INPUT -p 89 -j ACCEPT
 ip6tables -A OUTPUT -p 89 -j ACCEPT
 ip6tables -A FORWARD -p 89 -j ACCEPT
@@ -73,9 +73,8 @@ do
 			# Allowing Traffic DNS to the two dataserver
 			ip6tables -A FORWARD -d $address -p $j --dport 53 -j ACCEPT
 		done
-		address=fd00:$i:1::/64
 		# We drop the DNS traffic in destination to another address in the network
-		ip6tables -A FORWARD -d address -p $j --dport 53 -j DROP
+		ip6tables -A FORWARD -d fd00:$i:1::/64 -p $j --dport 53 -j DROP
 		# But the DNS traffic for outside of the network is accepted
 		ip6tables -A FORWARD -p $j --dport 53 -j ACCEPT
 	done
@@ -90,27 +89,27 @@ do
 		address=fd00:$i:1:$j::/55
 		# http (port 80) and https (port 443)
 		ip6tables -A FORWARD -s $address -p tcp -m multiport --dports 80,443 -j ACCEPT
-		
+
 		# smtp (port 25)
 		ip6tables -A FORWARD -s $address -p tcp --dport 25 -j ACCEPT
-		
+
 		# pop (port 110 or 995 (with ssl))
 		ip6tables -A FORWARD -s $address -p tcp -m multiport --dports 110,995 -j ACCEPT
-				
+
 		# imap (port 143 or 993 (for imaps but discouraged by RFC 2595))
 		ip6tables -A FORWARD -s $address -p tcp -m multiport --dports 143,993 -j ACCEPT
 	done
-	
+
 	# student + staff
 	# ssh = tcp through port 22
 	for j in "f200" "f400";
-	do 
+	do
 		address=fd00:$i:1:$j::/55
 		ip6tables -A FORWARD -s $address -p tcp --dport 22 -j ACCEPT
 	done
 done
 
-# snmp 
+# snmp
 ip6tables -A INPUT -p udp -m multiport --dports 161,162 -j ACCEPT
 ip6tables -A FORWARD -p udp -m multiport --dports 161,162 -j ACCEPT
 ip6tables -A INPUT -p udp -m multiport --sports 161,162 -j ACCEPT

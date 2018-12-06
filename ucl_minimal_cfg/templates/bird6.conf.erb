@@ -70,11 +70,18 @@ protocol static static_bgp{
 	route <%= @bgp["export_prefix"] %> reject;
 }
 
+filter import_default{
+	if (net = ::/0 ) then {
+		accept;
+	}
+	reject;
+}
+
 protocol bgp provider {
 	local as <%= @bgp["local_as"] %>;
 	neighbor <%= @bgp["neighbor_ip"] %> as <%= @bgp["neighbor_as"]%>;
 	#source address <%= @bgp["source_ip"] %>;
 	export where proto = "static_bgp";
-	import all;
+	import filter import_default;
 }
 <%- end -%>
