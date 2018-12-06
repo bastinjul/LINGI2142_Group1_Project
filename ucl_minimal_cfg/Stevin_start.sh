@@ -5,6 +5,8 @@
 puppet apply --verbose --parser future --hiera_config=/etc/puppet/hiera.yaml /etc/puppet/site.pp --modulepath=/puppetmodules 
 
 
+ip address add fd00:200:1:fe8f::6 dev lo
+
 ip link set dev Stevin-eth1 up 
 ip address add dev Stevin-eth1 fd00:200:1:fe00::6/64 
 ip address add dev Stevin-eth1 fd00:300:1:fe00::6/64 

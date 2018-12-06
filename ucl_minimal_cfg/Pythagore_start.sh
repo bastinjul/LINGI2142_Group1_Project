@@ -7,6 +7,8 @@ puppet apply --verbose --parser future --hiera_config=/etc/puppet/hiera.yaml /et
 ip link set dev belneta up 
 ip address add dev belneta fd00:300::1/48 
 
+ip address add fd00:200:1:fe0f::4 dev lo
+
 ip link set dev Pythagore-eth1 up 
 ip address add dev Pythagore-eth1 fd00:200:1:fe41::4/64 
 ip address add dev Pythagore-eth1 fd00:300:1:fe41::4/64 
@@ -17,12 +19,12 @@ ip link set dev Pythagore-eth2 up
 ip address add dev Pythagore-eth2 fd00:200:1:fe00::4/64 
 ip address add dev Pythagore-eth2 fd00:300:1:fe00::4/64 
 
-ip link set dev Pythagore-lan0 up 
-ip address add dev Pythagore-lan0 fd00:200:1:f600::4/64 
-ip address add dev Pythagore-lan0 fd00:300:1:f600::4/64 
 ip link set dev Pythagore-lan1 up 
 ip address add dev Pythagore-lan1 fd00:200:1:f61f::4/64 
 ip address add dev Pythagore-lan1 fd00:300:1:f61f::4/64 
+ip link set dev Pythagore-lan0 up 
+ip address add dev Pythagore-lan0 fd00:200:1:f600::4/64 
+ip address add dev Pythagore-lan0 fd00:300:1:f600::4/64 
 
 ip link set dev Pythagore-lan2 up
 ip link add link Pythagore-lan2 name Pyth-lan2.000 type vlan id 0x000
@@ -46,4 +48,8 @@ ip -6 rule add from fd00:200:1::/48 to fd00:200:1::/48 pref 1000 table main
 ip -6 rule add from fd00:200:1::/48 to fd00:300:1::/48 pref 1000 table main 
 ip -6 route add ::/0 via fd00:200:1:ff02::2 dev Pythagore-eth0 metric 1 table 10 
 ip -6 rule add from fd00:200:1::/48 pref 2000 table 10 
+ip -6 tunnel add tun mode ip6ip6 local fd00:200:1:fe0f::4 remote fd00:200:1:ff0f::2 dev lo 
+ip link set dev tun up 
+ip address add dev tun fd00:200:1:ffff::4/64 
+ip -6 route add ::/0 via fd00:200:1:ffff::2 dev tun pref 50 table 10 
 
