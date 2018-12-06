@@ -35,4 +35,6 @@ android-profile
 .vagrant
 tags
 
+.vscode
+
 
