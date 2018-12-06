@@ -1,12 +1,8 @@
 #!/usr/bin/env python3
 import os, time, json
+from print_res import check
 
-WA = '!'*10
-def check(data,pattern):
-    for r in data:
-        for d in data[r]:
-            if data[r][d] != 0:
-                print('{0} {1} TEST FAILED FOR {2} ROUTER AND {3} ADDRESS {0}'.format(WA,pattern,r,d))
+print("!!!!! LINK FAILURE TEST BETWEEN SH1C AND HALLES !!!!!")
 
 os.system('sudo ip netns exec SH1C sudo ip link set SH1C-eth1 down')
 
