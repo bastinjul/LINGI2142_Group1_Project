@@ -53,6 +53,11 @@ do
 	ip6tables -A FORWARD -d fd00:$i:1:f000::/55 -j ACCEPT
 done
 
+# Allow tunneling
+ip6tables -A INPUT  -p 41 -j ACCEPT
+ip6tables -A OUTPUT  -p 41 -j ACCEPT
+ip6tables -A FORWARD  -p 41 -j ACCEPT
+
 # ICMPv6 traffic (no limitation for inside traffic)
 ip6tables -A INPUT -p icmpv6 -j ACCEPT
 ip6tables -A OUTPUT -p icmpv6 -j ACCEPT
@@ -67,12 +72,10 @@ for i in 200 300;
 do
 	for j in "udp" "tcp";
 	do
-		for k in "f600" "f740";
-		do
-			address=fd00:$i:1:$k::1
-			# Allowing Traffic DNS to the two dataserver
-			ip6tables -A FORWARD -d $address -p $j --dport 53 -j ACCEPT
-		done
+		# Allowing Traffic DNS to the two dataserver
+		ip6tables -A FORWARD -d fd00:f600:1:$k::1 -p $j --dport 53 -j ACCEPT
+		ip6tables -A FORWARD -d fd00:f740:1:$k::1 -p $j --dport 53 -j ACCEPT
+		
 		# We drop the DNS traffic in destination to another address in the network
 		ip6tables -A FORWARD -d fd00:$i:1::/64 -p $j --dport 53 -j DROP
 		# But the DNS traffic for outside of the network is accepted
@@ -115,5 +118,6 @@ ip6tables -A FORWARD -p udp -m multiport --dports 161,162 -j ACCEPT
 ip6tables -A INPUT -p udp -m multiport --sports 161,162 -j ACCEPT
 ip6tables -A FORWARD -p udp -m multiport --sports 161,162 -j ACCEPT
 
-# dhcpv6 port 546 from client and 547 from server the client initialize the connection
-ip6tables -A FORWARD -p udp --sport 546 --dport 547 -j ACCEPT
+# Allowing Traffic DHCPv6 to the two DHCPservers
+ip6tables -A FORWARD -d fd00:f600:1:$k::2 -p udp --sport 546 --dport 547 -j ACCEPT
+ip6tables -A FORWARD -d fd00:f740:1:$k::2 -p udp --sport 546 --dport 547 -j ACCEPT
