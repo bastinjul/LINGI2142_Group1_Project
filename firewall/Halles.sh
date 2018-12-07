@@ -113,6 +113,13 @@ do
 	done
 done
 
+# uniquely for border router
+# block DHCP going/from outside of the network
+ip6tables -A INPUT -p udp -i belnetb --sport 546 --dport 547 -j DROP
+ip6tables -A FORWARD -p udp -i belnetb --sport 546 --dport 547 -j DROP
+ip6tables -A OUTPUT -p udp -o belnetb --sport 546 --dport 547 -j DROP
+ip6tables -A FORWARD -p udp -o belnetb --sport 546 --dport 547 -j DROP
+
 for i in 200 300;
 do
 	# guest+others+student+staff:
@@ -140,6 +147,10 @@ do
 		address=fd00:$i:1:$j::/55
 		ip6tables -A FORWARD -s $address -p tcp --dport 22 -j ACCEPT
 	done
+	
+	# Allowing Traffic DHCPv6 to the two DHCPservers
+	ip6tables -A FORWARD -d fd00:$i:1:f600::2 -p udp --sport 546 --dport 547 -j ACCEPT
+	ip6tables -A FORWARD -d fd00:$i:1:f740::2 -p udp --sport 546 --dport 547 -j ACCEPT
 done
 
 # snmp
@@ -148,13 +159,3 @@ ip6tables -A FORWARD -p udp -m multiport --dports 161,162 -j ACCEPT
 ip6tables -A INPUT -p udp -m multiport --sports 161,162 -j ACCEPT
 ip6tables -A FORWARD -p udp -m multiport --sports 161,162 -j ACCEPT
 
-# uniquely for border router
-# block DHCP going/from outside of the network
-ip6tables -A INPUT -p udp -i belnetb --sport 546 --dport 547 -j DROP
-ip6tables -A FORWARD -p udp -i belnetb --sport 546 --dport 547 -j DROP
-ip6tables -A OUTPUT -p udp -o belnetb --sport 546 --dport 547 -j DROP
-ip6tables -A FORWARD -p udp -o belnetb --sport 546 --dport 547 -j DROP
-
-# Allowing Traffic DHCPv6 to the two DHCPservers
-ip6tables -A FORWARD -d fd00:f600:1:f600::2 -p udp --sport 546 --dport 547 -j ACCEPT
-ip6tables -A FORWARD -d fd00:f740:1:f740::2 -p udp --sport 546 --dport 547 -j ACCEPT

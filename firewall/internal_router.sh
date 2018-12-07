@@ -110,6 +110,10 @@ do
 		address=fd00:$i:1:$j::/55
 		ip6tables -A FORWARD -s $address -p tcp --dport 22 -j ACCEPT
 	done
+	
+	# Allowing Traffic DHCPv6 to the two DHCPservers
+	ip6tables -A FORWARD -d fd00:$i:1:f600::2 -p udp --sport 546 --dport 547 -j ACCEPT
+	ip6tables -A FORWARD -d fd00:$i:1:f740::2 -p udp --sport 546 --dport 547 -j ACCEPT
 done
 
 # snmp
@@ -118,6 +122,3 @@ ip6tables -A FORWARD -p udp -m multiport --dports 161,162 -j ACCEPT
 ip6tables -A INPUT -p udp -m multiport --sports 161,162 -j ACCEPT
 ip6tables -A FORWARD -p udp -m multiport --sports 161,162 -j ACCEPT
 
-# Allowing Traffic DHCPv6 to the two DHCPservers
-ip6tables -A FORWARD -d fd00:f600:1:f600::2 -p udp --sport 546 --dport 547 -j ACCEPT
-ip6tables -A FORWARD -d fd00:f740:1:f740::2 -p udp --sport 546 --dport 547 -j ACCEPT
