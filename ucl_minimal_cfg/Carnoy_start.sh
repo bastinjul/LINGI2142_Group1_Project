@@ -7,15 +7,15 @@ puppet apply --verbose --parser future --hiera_config=/etc/puppet/hiera.yaml /et
 
 ip address add fd00:200:1:fe4f::1 dev lo
 
-ip link set dev Carnoy-eth2 up 
-ip address add dev Carnoy-eth2 fd00:200:1:fe42::1/64 
-ip address add dev Carnoy-eth2 fd00:300:1:fe42::1/64 
 ip link set dev Carnoy-eth1 up 
 ip address add dev Carnoy-eth1 fd00:200:1:fe41::1/64 
 ip address add dev Carnoy-eth1 fd00:300:1:fe41::1/64 
 ip link set dev Carnoy-eth0 up 
 ip address add dev Carnoy-eth0 fd00:200:1:fe40::1/64 
 ip address add dev Carnoy-eth0 fd00:300:1:fe40::1/64 
+ip link set dev Carnoy-eth2 up 
+ip address add dev Carnoy-eth2 fd00:200:1:fe42::1/64 
+ip address add dev Carnoy-eth2 fd00:300:1:fe42::1/64 
 
 
 ip link set dev Carnoy-lan0 up
