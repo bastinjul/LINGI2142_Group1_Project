@@ -19,12 +19,12 @@ ip link set dev Pythagore-eth0 up
 ip address add dev Pythagore-eth0 fd00:200:1:ff02::4/64 
 ip address add dev Pythagore-eth0 fd00:300:1:ff02::4/64 
 
-ip link set dev Pythagore-lan0 up 
-ip address add dev Pythagore-lan0 fd00:200:1:f600::4/64 
-ip address add dev Pythagore-lan0 fd00:300:1:f600::4/64 
 ip link set dev Pythagore-lan1 up 
 ip address add dev Pythagore-lan1 fd00:200:1:f61f::4/64 
 ip address add dev Pythagore-lan1 fd00:300:1:f61f::4/64 
+ip link set dev Pythagore-lan0 up 
+ip address add dev Pythagore-lan0 fd00:200:1:f600::4/64 
+ip address add dev Pythagore-lan0 fd00:300:1:f600::4/64 
 
 ip link set dev Pythagore-lan2 up
 ip link add link Pythagore-lan2 name Pyth-lan2.000 type vlan id 0x000

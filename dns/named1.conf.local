@@ -8,47 +8,10 @@
 
 zone "group1.ingi" IN {
 	type master;
-	file "/etc/bind/zones/db.group1.ingi";
+	file "/etc/bind/db.200.group1.ingi";
 };
 
-zone "router.group1.ingi" IN {
+zone "1.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa" {
 	type master;
-	file "/etc/bind/zones/db.router.group1.ingi";
-	allow-query {intern_user;};
-	allow-transfer {intern_user;};
-};
-
-zone "service.group1.ingi" IN {
-	type master;
-	file "/etc/bind/zones/db.service.group1.ingi";
-	allow-query {intern_user;};
-	allow-transfer {intern_user;};
-};
-
-zone "router.group1.ingi.reverse200" IN {
-	type master;
-	file "/etc/bind/zones/db.router.group1.ingi.reverse200";
-	allow-query {intern_user;};
-	allow-transfer {intern_user;};
-};
-
-zone "router.group1.ingi.reverse300" IN {
-	type master;
-	file "/etc/bind/zones/db.router.group1.ingi.reverse300";
-	allow-query {intern_user;};
-	allow-transfer {intern_user;};
-};
-
-zone "service.group1.ingi.reverse200" IN {
-	type master;
-	file "/etc/bind/zones/db.service.group1.ingi.reverse200";
-	allow-query {intern_user;};
-	allow-transfer {intern_user;};
-};
-
-zone "service.group1.ingi.reverse300" IN {
-	type master;
-	file "/etc/bind/zones/db.service.group1.ingi.reverse300";
-	allow-query {intern_user;};
-	allow-transfer {intern_user;};
+	file "/etc/bind/db.200.group1.ingi.reverse";
 };
