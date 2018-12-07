@@ -2,13 +2,9 @@
 import os, json
 from print_res import check
 
-os.chdir('../')
-
 print("!!!!! STANDARD TEST FOR PING AND DIG !!!!!")
 
 os.system('./test_all.py')
-
-os.chdir('tests/')
 
 with open('ping_res.json') as ping_file:
         ping_data = json.load(ping_file)

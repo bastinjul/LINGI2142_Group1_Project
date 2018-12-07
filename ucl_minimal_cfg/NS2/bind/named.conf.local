@@ -13,5 +13,5 @@ zone "group1.ingi" IN {
 
 zone "1.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa" {
 	type master;
-	file "/etc/bind/db.200.ingi";
+	file "/etc/bind/db.200.group1.ingi";
 };
