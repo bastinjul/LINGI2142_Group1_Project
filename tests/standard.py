@@ -15,3 +15,8 @@ with open('dig_res.json') as dig_file:
         dig_data = json.load(dig_file)
 
 check(dig_data,'DIG')
+
+with open('bgp_res.json') as bgp_file:
+        bgp_data = json.load(bgp_file)
+
+check(bgp_data,'BGP')

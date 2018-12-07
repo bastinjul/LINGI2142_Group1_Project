@@ -23,6 +23,11 @@ run an emulated network.
 
 # Virtual network
 
+## Commands summary
+  * `make create` will start the network
+  * `make clean` will halt the network
+  * `make connect ROUTER={name of a router}` will connect you to the router specified when the network is up
+
 The main directory of this repository contains the set of scripts to start a
 virtual network as well as loads and apply its configuration files.
 You _should_ only run such a network within the VM.
