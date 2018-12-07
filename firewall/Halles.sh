@@ -106,6 +106,10 @@ do
 		ip6tables -A FORWARD -d fd00:f600:1:f600::1 -p $j --dport 53 -j ACCEPT
 		ip6tables -A FORWARD -d fd00:f740:1:f740::1 -p $j --dport 53 -j ACCEPT
 		
+		# Allowing Router to make DNS requests for the tests
+		ip6tables -A OUTPUT -d fd00:f600:1:f600::1 -p $j --dport 53 -j ACCEPT
+		ip6tables -A OUTPUT -d fd00:f740:1:f740::1 -p $j --dport 53 -j ACCEPT
+		
 		# We drop the DNS traffic in destination to another address in the network
 		ip6tables -A FORWARD -d fd00:$i:1::/64 -p $j --dport 53 -j DROP
 		# But the DNS traffic for outside of the network is accepted
