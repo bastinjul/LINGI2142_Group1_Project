@@ -7,6 +7,7 @@ create:
 	sudo ./dns/deploy_dns.sh
 	sudo ./dhcp/deploy_dhcp.sh
 	sudo ./dhclient/deploy_dhclient.sh
+	sudo ./snmp.py
 	sudo ./create_network.sh ucl_topo
 
 connect:
@@ -14,4 +15,7 @@ connect:
 
 clean:
 	sudo ./cleanup.sh
+
+test:
+	sudo ./test.py
 
