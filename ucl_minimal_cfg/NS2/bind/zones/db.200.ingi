@@ -1,6 +1,6 @@
 
 $TTL	604800
-@	IN	SOA	group1.ingi. root.group4.ingi. (
+@	IN	SOA	group1.ingi. root.group1.ingi. (
 			      1		; Serial
 			 604800		; Refresh
 			  86400		; Retry
@@ -11,9 +11,9 @@ $TTL	604800
 @   IN  NS  ns2.group1.ingi.
 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.6.f.1.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa. IN PTR ns1.group1.ingi.
 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.4.7.f.1.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa. IN PTR ns2.group1.ingi.
-1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.4.e.f.1.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa. IN PTR CARN.group1.ingi.
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.4.e.f.1.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa. IN PTR CARN.group1.ingi.
 2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.1.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa. IN PTR HALL.group1.ingi.
 3.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.4.e.f.1.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa. IN PTR MICH.group1.ingi.
-4.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.f.f.1.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa. IN PTR PYTH.group1.ingi.
+4.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.1.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa. IN PTR PYTH.group1.ingi.
 5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.1.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa. IN PTR SH1C.group1.ingi.
 6.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.e.f.1.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa. IN PTR STEV.group1.ingi.
