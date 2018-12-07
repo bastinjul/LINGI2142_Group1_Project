@@ -7,7 +7,7 @@
 //include "/etc/bind/zones.rfc1918";
 
 zone "group1.ingi" IN {
-	type master;
+	type master
 	file "/etc/bind/db.300.group1.ingi";
 };
 

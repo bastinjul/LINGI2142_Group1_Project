@@ -1,9 +1,5 @@
 # lingi2142 - Computer networks: configuration and management
 
-This repository contains:
-
-  * TODO complete
-
 # Virtual machine
 
 A sample virtual machine definition to run the script is provided and managed
@@ -27,22 +23,11 @@ run an emulated network.
   * `make create` will start the network
   * `make clean` will halt the network
   * `make connect ROUTER={name of a router}` will connect you to the router specified when the network is up
+  * `make test` launch the tests
 
 The main directory of this repository contains the set of scripts to start a
 virtual network as well as loads and apply its configuration files.
 You _should_ only run such a network within the VM.
-
-## Description
-
-  * TODO explain how to create the network and how to connect to a machine
-
-## Our topology
-
-TODO where is our topology
-
-### Description
-
-TODO describe our topology
 
 ### Scripts
 
@@ -51,10 +36,5 @@ in every net NS (in this case: Enable IPv6 and IPv6 forwarding). Their startup
 script then assign IPv6 addresses to the interfaces and/or start a routing
 daemon.
 
-More specifically:
-  - TODO describing the nodes
 
-### Example test
-
-  - TODO describing how to launch the tests and whats tests are available
 
