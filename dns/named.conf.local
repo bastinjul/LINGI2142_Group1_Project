@@ -8,10 +8,10 @@
 
 zone "group1.ingi" IN {
 	type master;
-	file "/var/cache/bind/db.group1.ingi";
+	file "/etc/bind/db.group1.ingi";
 };
 
 zone "1.0.0.0.0.0.2.0.0.0.d.f.ip6.arpa" {
 	type master;
-	file "/var/cache/bind/db.200.ingi";
+	file "/etc/bind/db.200.group1.ingi";
 };
