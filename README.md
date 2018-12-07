@@ -24,6 +24,7 @@ run an emulated network.
   * `make clean` will halt the network
   * `make connect ROUTER={name of a router}` will connect you to the router specified when the network is up
   * `make test` launch the tests
+  * `./snmp.py` will launch the snmp daemon
 
 The main directory of this repository contains the set of scripts to start a
 virtual network as well as loads and apply its configuration files.
