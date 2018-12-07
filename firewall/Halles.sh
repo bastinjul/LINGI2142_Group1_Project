@@ -162,6 +162,6 @@ ip6tables -A INPUT -p udp -m multiport --dports 161,162 -j ACCEPT
 ip6tables -A OUTPUT -p udp -m multiport --dports 161,162 -j ACCEPT
 ip6tables -A FORWARD -p udp -m multiport --dports 161,162 -j ACCEPT
 ip6tables -A INPUT -p udp -m multiport --sports 161,162 -j ACCEPT
-ip6tables -A OUTPUT -p udp -m multiport --dports 161,162 -j ACCEPT
+ip6tables -A OUTPUT -p udp -m multiport --sports 161,162 -j ACCEPT
 ip6tables -A FORWARD -p udp -m multiport --sports 161,162 -j ACCEPT
 
